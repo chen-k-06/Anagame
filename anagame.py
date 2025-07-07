@@ -264,11 +264,11 @@ def display_stats(stats):
 
 
 if __name__ == "__main__":
-
+  print("Hello")
   time_limit = 60
 
   explorer = AnagramExplorer(get_valid_word_list()) #helper object
-  letters = generate_letters(100, "uniform", explorer)
+  letters = generate_letters(30, "scrabble", explorer) # need a switch for this 
 
   print("\nWelcome to Anagame!\n")
   print("Please enter your anagram guessess separated by a comma: eat,tea")
