@@ -10,8 +10,33 @@
 </head>
 
 <body>
-    <div id="top-bar"></div>
-    <div id="main-container"></div>
+    <div id="main-container">
+        <div id="left-container">
+            <div id="top-bar">
+                <h1>Anagame</h1>
+                <button id="play-button">▶︎</button>
+                <!-- || -->
+            </div>
+            <div id="left-center"></div>
+        </div>
+        <div id="right-container">
+            <div id="difficulty-bar"></div>
+            <div id="clock-bar">
+                <div id="timer">60:00</div>
+            </div>
+            <div id="played-words"></div>
+            <div id="stats"></div>
+        </div>
+    </div>
+    <div id="lower-bar">
+        <a href=""> <button id="refresh">↻</button>
+        </a>
+        <button id="hint">Get a hint</button>
+        <!-- Needs javascript -->
+        <a href="https://github.com/chen-k-06/Anagame" target="_blank"> <button id="github">GitHub Repo</button>
+        </a>
+        <button id="how-to">How to play</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
