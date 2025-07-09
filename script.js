@@ -42,3 +42,64 @@ play_button.addEventListener("click", () => {
     updateTimer();
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
+
+/*
+Word entry event listener logic 
+*/
+const MIN_WORD_LENGTH = 3;
+const MAX_WORD_LENGTH = 7;
+let guesses = [];
+let pairs = [];
+let currentGuess = "";
+let guessCount = 0;
+document.addEventListener('keydown', async function (event) {
+    if (in_game == false) {
+        return;
+    }
+    let key = event.key;
+    if (key === 'Enter') {
+        if (in_game == true && currentGuess != null && currentGuess.length >= MIN_WORD_LENGTH) {
+            // get feedback. log all relevant values into lists
+            console.log('Submitting guess:', currentGuess);
+            let anagram_pair = get_pair(currentGuess);
+            guesses.push(anagram_pair)
+            currentGuess = "";
+
+            // update the html with the new pair
+            console.log("Adding ", anagram_pair, " to guess list.")
+            const pairs[guessCount] = document.createElement("div");
+            document.getElementById("myDIV").appendChild(pair);
+
+            guessCount++;
+        }
+    }
+
+    // backspace key logic 
+    else if (key === 'Backspace' && currentGuess.length != 0) {
+        event.preventDefault();
+        currentGuess = currentGuess.slice(0, -1);
+        console.log('Deleted. Current guess:', currentGuess);
+
+        // still need to update the html with the backspace
+    }
+
+    // letter key logic
+    else if (/^[a-zA-Z]$/.test(key) || /^[,]$/.test(key)) {
+        currentGuess += key.toUpperCase();
+        console.log('Added letter:', key.toUpperCase(), 'Current guess:', currentGuess);
+
+        // still need to update the html with the new letter
+    }
+});
+
+function get_pair(guess) {
+    const index = guess.indexOf(',');
+    if (index == -1) {
+        // comma not found
+        return [-1, -1];
+    }
+
+    let word1 = guess.slice(0, index);
+    let word2 = guess.slice(index + 1, guess.length - 1);
+    return [word1, word2];
+}
