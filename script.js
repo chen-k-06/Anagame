@@ -11,10 +11,18 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(timerId);
         timer.textContent = "Time's up!";
+        play_button.classList.remove("disabled")
+        in_game = false;
     }
 
     timeLeft -= 1;
 }
 
-updateTimer();
-const timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
+let play_button = document.getElementById('play-button');
+let in_game = false;
+play_button.addEventListener("click", () => {
+    in_game = true;
+    play_button.classList.add("disabled")
+    updateTimer();
+    const timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
+});
