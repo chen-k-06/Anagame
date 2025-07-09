@@ -13,6 +13,7 @@ function updateTimer() {
         timer.textContent = "Time's up!";
         play_button.classList.remove("disabled")
         in_game = false;
+        console.log("Game over.")
     }
 
     timeLeft -= 1;
@@ -20,9 +21,16 @@ function updateTimer() {
 
 let play_button = document.getElementById('play-button');
 let in_game = false;
+let timerId = 0;
 play_button.addEventListener("click", () => {
+    if (in_game == true) {
+        console.log("Already in a game.");
+        return;
+    }
     in_game = true;
+    console.log("Game started.")
     play_button.classList.add("disabled")
+    timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
     updateTimer();
-    const timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
+    timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
