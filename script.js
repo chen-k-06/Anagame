@@ -16,6 +16,7 @@ play_button.addEventListener("click", () => {
         console.log("Already in a game.");
         return;
     }
+    // make API call for letters
 
     // disable play button and slider
     document.getElementById('slider').disabled = true;
@@ -46,7 +47,7 @@ document.addEventListener('keydown', async function (event) {
     }
     let key = event.key;
     if (key === 'Enter') {
-        if (in_game == true && currentGuess != null && currentGuess.length >= MIN_WORD_LENGTH) {
+        if (in_game == true && currentGuess != null && currentGuess.length >= MIN_WORD_LENGTH && currentGuess.length <= 2 * MAX_WORD_LENGTH + 2) {
             // get feedback. log all relevant values into lists
             console.log('Submitting guess:', currentGuess);
             let anagram_pair = get_pair(currentGuess);
@@ -94,7 +95,7 @@ function get_pair(guess) {
 }
 
 /*
-Timer function logic
+Timer function / end game logic
 */
 let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 const timer = document.getElementById('timer');
@@ -114,6 +115,7 @@ function updateTimer() {
         console.log("Game over.")
 
         // get feedback
+        // send API call
     }
 
     timeLeft -= 1;

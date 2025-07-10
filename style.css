@@ -38,6 +38,7 @@ button:hover {
     height: 70vh;
     padding: 20px;
     margin-top: 0;
+    display: block;
 }
 
 #left-container #top-bar {
@@ -68,13 +69,29 @@ button:hover {
     border-radius: 20px;
 }
 
-#left-container #left-center {
-    height: 70vh;
-}
-
 .disabled {
     background-color: #b09c83;
     pointer-events: none;
+}
+
+/* tiles */
+#left-container #left-center {
+    height: 70vh;
+    display: block;
+}
+
+#left-container #left-center div {
+    overflow: hidden;
+    display: flex;
+    /* justify-self: center; */
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    width: 8vh;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    background-color: #C59763;
+    margin: 10px;
 }
 
 #right-container {
