@@ -51,18 +51,19 @@ button:hover {
 
 #left-container #top-bar h1 {
     letter-spacing: 5px;
-    margin: 0;
+    margin: 10px;
     font-size: 8vh;
     font-weight: 200;
 }
 
 #play-button {
     border-width: 4px;
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 40px;
+    padding-right: 40px;
     font-size: 2vh;
     margin: 0;
-    margin-right: 3.5vh;
+    margin-right: 3vh;
+    margin-left: 3vh;
     margin-bottom: 10px;
     border-radius: 20px;
 }
@@ -85,8 +86,11 @@ button:hover {
     height: 70vh;
     top: 0;
     left: 0;
-    padding: 15px;
+    padding: 30px;
     font-size: 3.5vh;
+    overflow: scroll;
+    resize: none;
+    flex-shrink: 0;
 }
 
 #timer {
@@ -106,8 +110,26 @@ button:hover {
 }
 
 #played-words {
+    display: inline-block;
     height: 30vh;
 }
+
+#played-words div {
+    display: inline-block;
+    font-size: 3vh;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgb(71, 71, 71);
+}
+
+#played-words .correct {
+    color: green;
+}
+
+#played-words .incorrect {
+    color: red;
+}
+
 
 #lower-bar {
     height: 10vh;
