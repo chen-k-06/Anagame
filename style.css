@@ -78,21 +78,68 @@ button:hover {
 #left-container #left-center {
     height: 70vh;
     display: block;
+    margin: 10px;
+    position: relative;
 }
 
 #left-container #left-center div {
+    position: absolute;
     overflow: hidden;
     display: flex;
     /* justify-self: center; */
     justify-content: center;
     align-items: center;
-    height: 8vh;
-    width: 8vh;
-    border-radius: 8px;
+    height: 9vh;
+    width: 9vh;
+    border-radius: 13px;
     aspect-ratio: 1;
     background-color: #C59763;
     margin: 10px;
+    font-size: 6vh;
 }
+
+#tile-0 {
+    top: 15px;
+    transform: rotate(-20deg);
+}
+
+#tile-1 {
+    top: 30px;
+    right: 50px;
+    transform: rotate(30deg);
+}
+
+#tile-2 {
+    left: 110px;
+    top: 110px;
+    transform: rotate(-15deg);
+}
+
+#tile-3 {
+    left: 10px;
+    top: 190px;
+    transform: rotate(30deg);
+}
+
+#tile-4 {
+    right: 40px;
+    top: 180px;
+    transform: rotate(20deg);
+}
+
+#tile-5 {
+    top: 330px;
+    left: 30px;
+    transform: rotate(-15deg);
+}
+
+#tile-6 {
+    top: 300px;
+    right: 60px;
+    transform: rotate(35deg);
+}
+
+/* Right side styles */
 
 #right-container {
     background-color: #E9CDAB;
