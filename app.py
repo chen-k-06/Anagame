@@ -24,22 +24,24 @@ def read_root():
 # Calculate end of game statistics functions
 #------------------------------------------------
 class GetLetters(BaseModel):
-    fun_factor = int
-
+    distribution: list[str]
+    fun_factor: int
+    
 @app.post("/get_letters")
 def handle_get_letters(request: GetLetters) -> list[str]: 
-    result = calc_stats(request.guesses, request.feedback, request.current_possible_answers)
+    explorer = AnagramExplorer(get_valid_word_list())
+    result = generate_letters(request.fun_factor, request.distribution, explorer)
     return result
 
 #------------------------------------------------
 # Calculate end of game statistics functions 
 #------------------------------------------------
 class CalcStats(BaseModel):
-    distribution: list[str]
-    fun_factor: int
+    guesses: list[str]
+    letter: list[str]
 
 @app.post("/calc_stats")
 def handle_calc_stats(request: CalcStats) -> list[str]: 
     explorer = AnagramExplorer(get_valid_word_list())
-    result = calc_stats(request.fun_factor, request.distribution, explorer)
+    result = calc_stats(request.guesses, request.letter, explorer)
     return result
