@@ -82,7 +82,7 @@ button:hover {
     position: relative;
 }
 
-#left-container #left-center div {
+.tile {
     position: absolute;
     overflow: hidden;
     display: flex;
@@ -157,6 +157,23 @@ button:hover {
     flex-shrink: 0;
 }
 
+#toggles {
+    display: flex;
+    justify-content: space-between;
+}
+
+#right-container input {
+    display: inline-block;
+    width: 60%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#distribution-toggle {
+    display: inline-block;
+    width: 10%;
+}
+
 #timer {
     display: inline;
     align-items: center;
@@ -165,12 +182,6 @@ button:hover {
     width: 5ch;
     display: inline-block;
     font-family: 'Koulen', monospace;
-}
-
-#right-container input {
-    width: 60%;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 #played-words {
