@@ -2,13 +2,15 @@ const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 7;
 const MAX_FUN_FACTOR = 40;
 const tileCount = 7;
+const slider = document.getElementById("slider");
+const distToggle = document.getElementById("scrabble-uniform");
+let fun_factor = 40 - 20;
 let guesses = []; // list of lists, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
 let guessCount = 0;
-
-let distToggle = document.getElementById("scrabble-uniform");
 let distrbution_value = "uniform";
+
 if (distToggle.value === "1") {
     console.log("Mode: SCRABBLE");
     distrbution_value = "scrabble"
@@ -30,19 +32,13 @@ play_button.addEventListener("click", () => {
         return;
     }
 
-    // get data
-    const slider = document.getElementById("slider");
-
-    slider.addEventListener("input", () => {
-        const fun_factor = slider.value;
-    });
-
     // make API call for letters
     let letters = getLetters(fun_factor, distrbution_value);
 
     // disable play button and slider
     document.getElementById('slider').disabled = true;
     document.getElementById('play-button').disabled = true;
+    document.getElementById('scrabble-uniform').disabled = true;
 
     // reset containers
     guesses = [];
@@ -53,11 +49,17 @@ play_button.addEventListener("click", () => {
     document.getElementById("played-words").appendChild(pairs[guessCount]);
 
     in_game = true;
-    console.log("Game started.")
-    play_button.classList.add("disabled")
+    console.log("Game started.");
+    play_button.classList.add("disabled");
+    slider.classList.add("disabled");
+    distToggle.classList.add("disabled");
     timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
     updateTimer();
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
+
+    // populate tiles 
+    console.log("Letters recieved: ", letters);
+    updateTiles(letters);
 });
 
 async function getLetters(distribution, fun_factor) {
@@ -113,6 +115,10 @@ distToggle.addEventListener("input", () => {
     } else {
         console.log("Mode: UNIFORM");
     }
+});
+
+slider.addEventListener("input", () => {
+    fun_factor = 40 - slider.value;
 });
 
 /*
@@ -185,10 +191,13 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(timerId);
         timer.textContent = "Done!";
-        play_button.classList.remove("disabled")
         in_game = false;
-        document.getElementById('slider').disabled = false;
-        document.getElementById('play-button').disabled = false;
+        slider.disabled = false;
+        slider.classList.remove("disabled");
+        play_button.disabled = false;
+        play_button.classList.remove("disabled");
+        distToggle.disabled = false;
+        play_button.classList.remove("disabled");
         console.log("Game over.")
 
         // get feedback
@@ -197,3 +206,29 @@ function updateTimer() {
 
     timeLeft -= 1;
 }
+
+/*
+Slider styling
+*/
+function updateSliderBackground(slider) {
+    const percent = ((slider.value - slider.min) / (slider.max - slider.min) * 100) + 2;
+    slider.style.background = `linear-gradient(to right, red 0%, red ${percent}%, white ${percent}%, white 100%)`;
+}
+
+slider.addEventListener('input', () => updateSliderBackground(slider));
+updateSliderBackground(slider);
+
+/*
+Toggle styling 
+*/
+distToggle.addEventListener("mousedown", (e) => {
+    if (distToggle.value === "1") {
+        distrbution_value = "scrabble"
+        distToggle.value = 0;
+    }
+    else {
+        distrbution_value = "uniform"
+        distToggle.value = 1;
+    }
+    e.preventDefault();
+});
