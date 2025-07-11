@@ -1,9 +1,21 @@
 const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 7;
+const MAX_FUN_FACTOR = 40;
+const tileCount = 7;
 let guesses = []; // list of lists, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
 let guessCount = 0;
+
+let distToggle = document.getElementById("scrabble-uniform");
+let distrbution_value = "uniform";
+if (distToggle.value === "1") {
+    console.log("Mode: SCRABBLE");
+    distrbution_value = "scrabble"
+} else {
+    console.log("Mode: UNIFORM");
+    distrbution_value = "uniform"
+}
 
 /*
 Start game logic
@@ -11,12 +23,22 @@ Start game logic
 let play_button = document.getElementById('play-button');
 let in_game = false;
 let timerId = 0;
+
 play_button.addEventListener("click", () => {
     if (in_game == true) {
         console.log("Already in a game.");
         return;
     }
+
+    // get data
+    const slider = document.getElementById("slider");
+
+    slider.addEventListener("input", () => {
+        const fun_factor = slider.value;
+    });
+
     // make API call for letters
+    let letters = getLetters(fun_factor, distrbution_value);
 
     // disable play button and slider
     document.getElementById('slider').disabled = true;
@@ -36,6 +58,61 @@ play_button.addEventListener("click", () => {
     timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
     updateTimer();
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
+});
+
+async function getLetters(distribution, fun_factor) {
+    /**
+     * Calls the API. Returns the 7 letters used for an active AnaGame
+     *
+     * @param fun_factor the minimum number of anagrams in the game
+     * @returns {int[]} The reduced list of possible secret words
+     */
+
+    let fetchError = null;
+    let result = null;
+    if (fun_factor < 0 || fun_factor > MAX_FUN_FACTOR) {
+        console.warn("Fun factor out of bounds.");
+        return;
+    }
+
+    try {
+        const response = await fetch('https://anagame.onrender.com/get_letters', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                distribution: distribution,
+                fun_factor: fun_factor
+            })
+        });
+
+        result = await response.json();
+        console.log('Response:', result);
+    } catch (error) {
+        fetchError = error;
+        console.error('Fetch error:', fetchError);
+    }
+    return result
+}
+
+function updateTiles(letters) {
+    let tiles = document.querySelectorAll(".tiles");
+    for (let i = 0; i < tileCount; i++) {
+        tiles[i].textContent = letters[i]
+    }
+}
+
+/*
+Scrabble / uniform distrbution toggle logic
+*/
+
+distToggle.addEventListener("input", () => {
+    if (distToggle.value === "1") {
+        console.log("Mode: SCRABBLE");
+    } else {
+        console.log("Mode: UNIFORM");
+    }
 });
 
 /*
