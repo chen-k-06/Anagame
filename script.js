@@ -65,7 +65,7 @@ play_button.addEventListener("click", async () => {
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
 
-async function getLetters(distribution, fun_factor) {
+async function getLetters(fun_factor, distribution) {
     /**
      * Calls the API. Returns the 7 letters used for an active AnaGame
      *
