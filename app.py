@@ -25,7 +25,7 @@ def read_root():
 #------------------------------------------------
 class GetLetters(BaseModel):
     fun_factor: int
-    distribution: list[str]
+    distribution: str
     
 @app.post("/get_letters")
 def handle_get_letters(request: GetLetters) -> list[str]: 
