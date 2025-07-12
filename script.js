@@ -93,8 +93,8 @@ async function getLetters(distribution, fun_factor) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                fun_factor: fun_factor,
-                distribution: str(distribution)
+                fun_factor: parseInt(fun_factor),
+                distribution: String(distribution)
             })
         });
 
