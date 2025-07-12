@@ -45,3 +45,7 @@ def handle_calc_stats(request: CalcStats) -> list[str]:
     explorer = AnagramExplorer(get_valid_word_list())
     result = calc_stats(request.guesses, request.letter, explorer)
     return result
+
+#------------------------------------------------
+# Get all anagrams (for hint)
+#------------------------------------------------

@@ -26,7 +26,7 @@ let play_button = document.getElementById('play-button');
 let in_game = false;
 let timerId = 0;
 
-play_button.addEventListener("click", () => {
+play_button.addEventListener("click", async () => {
     if (in_game == true) {
         console.log("Already in a game.");
         return;
@@ -54,12 +54,15 @@ play_button.addEventListener("click", () => {
     slider.classList.add("disabled");
     distToggle.classList.add("disabled");
     timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
-    updateTimer();
-    timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 
     // populate tiles 
-    console.log("Letters recieved: ", letters);
-    updateTiles(letters);
+    const letters_recieved = await letters;
+    console.log("Letters recieved: ", letters_recieved);
+    updateTiles(letters_recieved);
+
+    // timer start
+    updateTimer();
+    timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
 
 async function getLetters(distribution, fun_factor) {
@@ -99,7 +102,7 @@ async function getLetters(distribution, fun_factor) {
 }
 
 function updateTiles(letters) {
-    let tiles = document.querySelectorAll(".tiles");
+    const tiles = document.querySelectorAll('.tile');
     for (let i = 0; i < tileCount; i++) {
         tiles[i].textContent = letters[i]
     }
@@ -197,7 +200,7 @@ function updateTimer() {
         play_button.disabled = false;
         play_button.classList.remove("disabled");
         distToggle.disabled = false;
-        play_button.classList.remove("disabled");
+        distToggle.classList.remove("disabled");
         console.log("Game over.")
 
         // get feedback
