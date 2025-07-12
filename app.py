@@ -24,8 +24,8 @@ def read_root():
 # Calculate end of game statistics functions
 #------------------------------------------------
 class GetLetters(BaseModel):
-    distribution: list[str]
     fun_factor: int
+    distribution: list[str]
     
 @app.post("/get_letters")
 def handle_get_letters(request: GetLetters) -> list[str]: 
