@@ -38,12 +38,12 @@ def handle_get_letters(request: GetLetters) -> list[str]:
 #------------------------------------------------
 class CalcStats(BaseModel):
     guesses: list[str]
-    letter: list[str]
+    letters: list[str]
 
 @app.post("/calc_stats")
 def handle_calc_stats(request: CalcStats) -> list[str]: 
     explorer = AnagramExplorer(get_valid_word_list())
-    result = calc_stats(request.guesses, request.letter, explorer)
+    result = calc_stats(request.guesses, request.letters, explorer) #guesses needs to be tuples
     return result
 
 #------------------------------------------------

@@ -5,7 +5,7 @@ const tileCount = 7;
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 let fun_factor = 40 - 20;
-let guesses = []; // list of lists, send to python code to calculate correct / incorrect etc
+let guesses = []; // list of strings, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
 let guessCount = 0;
@@ -200,20 +200,87 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(timerId);
         timer.textContent = "Done!";
-        in_game = false;
-        slider.disabled = false;
-        slider.classList.remove("disabled");
-        play_button.disabled = false;
-        play_button.classList.remove("disabled");
-        distToggle.disabled = false;
-        distToggle.classList.remove("disabled");
-        console.log("Game over.")
+        endGame();
 
         // get feedback
         // send API call
     }
 
     timeLeft -= 1;
+}
+
+/*
+End of game logic 
+*/
+function endGame() {
+    in_game = false;
+    slider.disabled = false;
+    slider.classList.remove("disabled");
+    play_button.disabled = false;
+    play_button.classList.remove("disabled");
+    distToggle.disabled = false;
+    distToggle.classList.remove("disabled");
+    console.log("Game over.");
+
+    // Make API call to get stats
+    stats = getStats(guesses,);
+
+    // Display stats
+    displayStats(stats);
+}
+
+async function getStats(guesses, letters) {
+    /**
+     * Calls the API. Returns the 7 letters used for an active AnaGame
+     *
+     * @param fun_factor the minimum number of anagrams in the game
+     * @returns {int[]} The reduced list of possible secret words
+     */
+
+    let fetchError = null;
+    let result = null;
+
+    console.log("Sending:", JSON.stringify({
+        guesses: guesses,
+        letters: letters
+    }));
+
+    try {
+
+        const response = await fetch('https://anagame.onrender.com/calc_stats"', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                guesses: guesses,
+                letters: letters
+            })
+        });
+
+        result = await response.json();
+        console.log('Response:', result);
+    } catch (error) {
+        fetchError = error;
+        console.error('Fetch error:', fetchError);
+    }
+    return result
+}
+
+function displayStats(stats) {
+    console.log("accuracy, valid_guesses, invalid_guesses, skill, final score");
+    console.log("Guesses: ", guesses);
+    let valid_words = stats["valid"];
+
+    // apply coloring for correct / incorrect
+    for (let i = 0; i < guesses.length; i++) {
+        if (!valid_words.includes(guesses[i])) {
+            guesses[i].classList.add('correct')
+        }
+        else {
+            guesses[i].classList.add('incorrect')
+        }
+    }
 }
 
 /*
