@@ -87,8 +87,8 @@ async function getLetters(distribution, fun_factor) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                distribution: distribution,
-                fun_factor: fun_factor
+                fun_factor: fun_factor,
+                distribution: distribution
             })
         });
 
