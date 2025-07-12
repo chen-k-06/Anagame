@@ -80,11 +80,12 @@ async function getLetters(distribution, fun_factor) {
         return;
     }
 
+    console.log("Sending:", JSON.stringify({
+        fun_factor: fun_factor,
+        distribution: distribution
+    }));
+
     try {
-        console.log("Sending:", JSON.stringify({
-            fun_factor: fun_factor,
-            distribution: distribution
-        }));
 
         const response = await fetch('https://anagame.onrender.com/get_letters', {
             method: 'POST',
