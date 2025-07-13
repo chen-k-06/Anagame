@@ -274,6 +274,7 @@ function displayStats(stats) {
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
+        console.log("Processing guess \"", guesses[i], "\".");
         if (!valid_words.includes(guesses[i])) {
             guesses[i].classList.add('correct')
         }
@@ -281,6 +282,10 @@ function displayStats(stats) {
             guesses[i].classList.add('incorrect')
         }
     }
+}
+
+function areArraysEq(x, y) {
+    return true;
 }
 
 /*
