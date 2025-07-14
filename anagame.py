@@ -4,7 +4,7 @@ from valid_anagame_words import get_valid_word_list
 from AnagramExplorer import AnagramExplorer
 
 def generate_letters(fun_factor: int, distribution: str, explorer:AnagramExplorer) -> list:
-   '''Generates a list of 7 randomly-chosen lowercase letters which can form at least 
+    '''Generates a list of 7 randomly-chosen lowercase letters which can form at least 
       fun_factor unique anagramable words.
 
 
@@ -23,34 +23,33 @@ def generate_letters(fun_factor: int, distribution: str, explorer:AnagramExplore
          >>> explorer = AnagramExplorer(get_valid_word_list())
          >>> generate_letters(75, "scrabble", explorer)
          ["p", "o", "t", "s", "r", "i", "a"] 
-   '''
-   letters = ["p", "o", "t", "s", "r", "i", "a"]   # Tip: Start with a consistent list of letters for testing purposes
-   ### BEGIN SOLUTION
-   
-   fun_factor_achieved = False
+    '''   
+    letters = ["p", "o", "t", "s", "r", "i", "a"] 
+    fun_factor_achieved = False
+    distribution = distribution.lower()
 
-   while (fun_factor_achieved == False):
-    if distribution == "uniform":
-        uniform_distribution = "abcdiefghjklmnopqrstuvwxyz"
-        uniform_distribution = list(uniform_distribution)
-        for i in range(7):
-           letters[i] = uniform_distribution[int(random.random()*25)]
+    while (fun_factor_achieved == False):
+        if distribution == "uniform":
+            uniform_distribution = "abcdiefghjklmnopqrstuvwxyz"
+            uniform_distribution = list(uniform_distribution)
+            for i in range(7):
+                letters[i] = uniform_distribution[int(random.random()*25)]
 
-    elif distribution == "scrabble":
-        scrabble_distribution = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"
-        scrabble_distribution = list(scrabble_distribution)
-        for i in range(7):
-            index = int(random.random()*len(scrabble_distribution) - 1)
-            letters[i] = scrabble_distribution[index]
-            scrabble_distribution.remove(scrabble_distribution[index])
-    
-    if (fun_factor <= len(explorer.get_all_anagrams(letters))):
-       fun_factor_achieved = True
+        elif distribution == "scrabble":
+            scrabble_distribution = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz"
+            scrabble_distribution = list(scrabble_distribution)
+            for i in range(7):
+                index = int(random.random()*len(scrabble_distribution) - 1)
+                letters[i] = scrabble_distribution[index]
+                scrabble_distribution.remove(scrabble_distribution[index])
+        print(letters)
+        if (fun_factor <= (len(explorer.get_all_anagrams(letters)))):
+            fun_factor_achieved = True
 
-       
-   ### END SOLUTION 
-   
-   return letters
+    # print(type(explorer.get_all_anagrams(letters)))
+    # print(len(explorer.get_all_anagrams(letters)))
+    # print(fun_factor <= (len(explorer.get_all_anagrams(letters))))
+    return letters
 
 
 def parse_guess(guess:str) -> tuple:
@@ -183,7 +182,7 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
           stats["invalid"].append(guess)
 
     if len(guesses) == 0: 
-       stats["accuracy"]
+       stats["accuracy"] = 0
     
     else:
         stats["accuracy"] = int ((len(stats["valid"]) / len(guesses)) * 100)
@@ -205,8 +204,6 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
        
     stats["not guessed"] = list(filter(lambda item: item is not None, stats["not guessed"]))
     stats["not guessed"] =  set(stats["not guessed"])
-
-    print(len(stats["not guessed"]))
 
     if len(explorer.get_all_anagrams(letters)) == 0:
        stats["skill"] = 0
@@ -264,11 +261,10 @@ def display_stats(stats):
 
 
 if __name__ == "__main__":
-  print("Hello")
   time_limit = 60
 
-  explorer = AnagramExplorer(get_valid_word_list()) #helper object
-  letters = generate_letters(30, "scrabble", explorer) # need a switch for this 
+  explorer = AnagramExplorer(get_valid_word_list())
+  letters = generate_letters(100, "scrabble", explorer) # resonable range is 0 - 60 (easiest at 60, hardest at 0)
 
   print("\nWelcome to Anagame!\n")
   print("Please enter your anagram guessess separated by a comma: eat,tea")

@@ -1,7 +1,5 @@
-from itertools import combinations
 
 class AnagramExplorer:
-    #
     def __init__(self, all_words: list[str]):
        self.__corpus = all_words
        self.anagram_lookup = self.build_lookup_dict() # Only calculated once, when the explorer object is created
@@ -32,7 +30,6 @@ class AnagramExplorer:
             Returns:
                 bool: Returns True if the word pair fulfills all validation requirements, otherwise returns False
         '''
-        ### BEGIN SOLUTION
         word_list = self.__corpus
         pair = list(pair)
 
@@ -87,7 +84,6 @@ class AnagramExplorer:
                 letters_copy.remove(letter)
         
         return True
-        ### END SOLUTION 
 
     def prime_hash(self, word: str):
         #calculates the prime hash value for a given word
@@ -109,7 +105,6 @@ class AnagramExplorer:
             Returns:
                 dict: Returns a dictionary with  keys that return sorted lists of all anagrams of the key (per the corpus)
         '''
-        ### BEGIN SOLUTION
         hash_dict = {}
 
         for word in self.__corpus:
@@ -127,8 +122,6 @@ class AnagramExplorer:
                 hash_dict[prime_hash_value] = sorted(hash_dict[prime_hash_value])
 
         return hash_dict
-
-        ### END SOLUTION 
 
     def characters_of_word_in_letters(self, word, letters: list[str]) -> bool:
       letters_copy = [letter for letter in letters]
@@ -173,21 +166,14 @@ class AnagramExplorer:
             Returns:
               set: all unique words in corpus which form at least 1 anagram pair
         '''
-        ### BEGIN SOLUTION
-
         unique_words = set()   
-
-        letters_hash = self.prime_hash("".join(letters))
 
         for key, words in self.anagram_lookup.items():
           if len(words) > 1:
-                for word in words:
-                  if self.prime_hash(letters) % self.prime_hash(word) == 0:
-                      unique_words.add(word)
+                if self.prime_hash(letters) % key == 0:
+                  unique_words = unique_words.union(words)
 
         return unique_words
-
-        ### END SOLUTION 
 
     def get_most_anagrams(self, letters:list[str]) -> str:
         '''Returns any word from one of the largest lists of anagrams that 
@@ -199,7 +185,6 @@ class AnagramExplorer:
             Returns:
               str: a single word from the largest anagram families
         '''
-        ### BEGIN SOLUTION
 
         highest_length = 1
         highest_key = None
@@ -211,8 +196,6 @@ class AnagramExplorer:
 
         return(self.anagram_lookup[highest_key][0])
                        
-        ### END SOLUTION 
-
 if __name__ == "__main__":
   words1 = [
      "abed","abet","abets","abut","acme","acre","acres","actors","actress","airmen","alert","alerted","ales","aligned","allergy","alter","altered","amen","anew","angel","angle","antler","apt",
