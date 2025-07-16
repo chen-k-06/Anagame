@@ -1,3 +1,4 @@
+import itertools
 
 class AnagramExplorer:
     def __init__(self, all_words: list[str]):
@@ -166,6 +167,7 @@ class AnagramExplorer:
             Returns:
               set: all unique words in corpus which form at least 1 anagram pair
         '''
+        # alternative solution
         unique_words = set()   
 
         for key, words in self.anagram_lookup.items():
@@ -173,6 +175,20 @@ class AnagramExplorer:
                 if self.prime_hash(letters) % key == 0:
                   unique_words = unique_words.union(words)
 
+        return unique_words
+
+        # unique_words = set()   
+        # combos = set()
+
+        # for i in range(3, 8):
+        #    combos.add(itertools.combinations(letters, i))
+        
+        # combos = list(combos)
+
+        # for combo in combos:
+        #   if combo in self.anagram_lookup and len(self.anagram_lookup[combo]) > 1:
+        #     unique_words = unique_words.union(self.anagram_lookup[combo])
+        
         return unique_words
 
     def get_most_anagrams(self, letters:list[str]) -> str:
