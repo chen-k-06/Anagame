@@ -1,15 +1,16 @@
 const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 7;
-const MAX_FUN_FACTOR = 40;
+const MAX_FUN_FACTOR = 20;
 const tileCount = 7;
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
-let fun_factor = 40 - 20;
+let INITAL_FUN_FACTOR = 5;
+let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
 let guesses = []; // list of strings, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
 let guessCount = 0;
-let distrbution_value = "uniform";
+let distrbution_value;
 
 if (distToggle.value === "1") {
     console.log("Mode: SCRABBLE");
@@ -34,6 +35,7 @@ play_button.addEventListener("click", async () => {
 
     // make API call for letters
     let letters = getLetters(fun_factor, distrbution_value);
+    timer.textContent = "...";
 
     // disable play button and slider
     document.getElementById('slider').disabled = true;
@@ -127,7 +129,7 @@ distToggle.addEventListener("input", () => {
 });
 
 slider.addEventListener("input", () => {
-    fun_factor = 40 - slider.value;
+    fun_factor = MAX_FUN_FACTOR - slider.value;
 });
 
 /*
@@ -303,13 +305,13 @@ updateSliderBackground(slider);
 Toggle styling 
 */
 distToggle.addEventListener("mousedown", (e) => {
-    if (distToggle.value === "1") {
+    if (distToggle.value === "0") {
         distrbution_value = "scrabble"
-        distToggle.value = 0;
+        distToggle.value = 1;
     }
     else {
         distrbution_value = "uniform"
-        distToggle.value = 1;
+        distToggle.value = 0;
     }
     e.preventDefault();
 });
