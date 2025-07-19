@@ -6,6 +6,7 @@ const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
+let letters = [];
 let guesses = []; // list of strings, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
@@ -117,7 +118,7 @@ play_button.addEventListener("click", async () => {
     }
 
     // make API call for letters
-    let letters = getLetters(fun_factor, distrbution_value);
+    letters = getLetters(fun_factor, distrbution_value);
     timer.textContent = ". . .";
 
     // disable play button and slider
@@ -142,7 +143,6 @@ play_button.addEventListener("click", async () => {
 
     // populate tiles 
     const letters_recieved = await letters;
-    console.log("Letters recieved: ", letters_recieved);
     updateTiles(letters_recieved);
 
     // timer start
@@ -225,7 +225,9 @@ function get_pair(guess) {
     }
 
     let word1 = guess.slice(0, index);
-    let word2 = guess.slice(index + 1, guess.length);
+    let word2 = guess.slice(index + 2, guess.length);
+    word1 = word1.trim();
+    word2 = word2.trim();
     return [word1, word2];
 }
 
@@ -233,7 +235,7 @@ function get_pair(guess) {
 Timer function / end game logic
 */
 // let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
-let timeLeft = 6 * 100; // 6 seconds -> 60 * 1000 milliseconds FOR TESTING
+let timeLeft = 6 * 100; // 6 seconds -> 6 * 1000 milliseconds FOR TESTING
 
 const timer = document.getElementById('timer');
 
@@ -246,9 +248,6 @@ function updateTimer() {
         clearInterval(timerId);
         timer.textContent = "Done!";
         endGame();
-
-        // get feedback
-        // send API call
     }
 
     timeLeft -= 1;
@@ -268,7 +267,7 @@ function endGame() {
     console.log("Game over.");
 
     // Make API call to get stats
-    stats = getStats(guesses,);
+    stats = getStats(guesses, letters);
 
     // Display stats
     displayStats(stats);
