@@ -43,6 +43,7 @@ button:hover {
 
 #left-container #top-bar {
     display: flex;
+    overflow: none;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -53,19 +54,16 @@ button:hover {
 #left-container #top-bar h1 {
     letter-spacing: 5px;
     margin: 10px;
-    font-size: 8vh;
+    font-size: 50px;
     font-weight: 200;
 }
 
 #play-button {
     border-width: 4px;
-    padding-left: 40px;
-    padding-right: 40px;
-    font-size: 2vh;
-    margin: 0;
-    margin-right: 3vh;
-    margin-left: 3vh;
-    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    margin: 10px;
     border-radius: 20px;
 }
 
@@ -175,7 +173,7 @@ button:hover {
 }
 
 #scrabble-uniform {
-    width: 7%;
+    width: 30px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -221,7 +219,7 @@ button:hover {
 }
 
 #lower-bar button {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 2px;
     padding: 10px;
@@ -231,4 +229,93 @@ button:hover {
     border-radius: 20px;
     text-transform: uppercase;
     border-width: 5px;
+}
+
+@media (max-width: 780px) {
+    #left-container #top-bar {
+        display: block;
+    }
+
+    #left-container #top-bar h1 {
+        font-size: 35px;
+        font-weight: 200;
+    }
+
+    #play-button {
+        display: block;
+        border-width: 3px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 15px;
+        margin: 3px;
+        margin-left: 1rem;
+    }
+
+    #lower-bar button {
+        font-size: 15px;
+        letter-spacing: 1px;
+        margin: 5px;
+        border-width: 3px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #refresh {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    /* tiles */
+    #tile-0 {
+        top: 80px;
+        left: 0px;
+    }
+
+    #tile-1 {
+        top: 20px;
+        left: 90px;
+    }
+
+    #tile-2 {
+        left: 100px;
+        top: 110px;
+        transform: rotate(20deg);
+    }
+
+    #tile-3 {
+        left: 0px;
+        top: 180px;
+        transform: rotate(-30deg);
+    }
+
+    #tile-4 {
+        left: 90px;
+        top: 230px;
+        transform: rotate(15deg);
+    }
+
+    #tile-5 {
+        top: 330px;
+        left: 90px;
+        transform: rotate(-15deg);
+    }
+
+    #tile-6 {
+        top: 300px;
+        right: 60px;
+        transform: rotate(35deg);
+    }
+}
+
+@media (max-width: 570px) {
+    #left-container #top-bar {
+        display: block;
+    }
+
+    #lower-bar button {
+        font-size: 2vw;
+        letter-spacing: 1px;
+        margin: 5px;
+        border-width: 3px;
+    }
 }

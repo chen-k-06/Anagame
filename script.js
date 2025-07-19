@@ -21,6 +21,89 @@ if (distToggle.value === "1") {
 }
 
 /*
+API call functions
+*/
+
+async function getLetters(fun_factor, distribution) {
+    /**
+     * Calls the API. Returns the 7 letters used for an active AnaGame
+     *
+     * @param fun_factor the minimum number of anagrams in the game
+     * @returns {int[]} The reduced list of possible secret words
+     */
+
+    let fetchError = null;
+    let result = null;
+    if (fun_factor < 0 || fun_factor > MAX_FUN_FACTOR) {
+        console.warn("Fun factor out of bounds.");
+        return;
+    }
+
+    console.log("Sending:", JSON.stringify({
+        fun_factor: fun_factor,
+        distribution: distribution
+    }));
+
+    try {
+        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_get_letters', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                fun_factor: parseInt(fun_factor),
+                distribution: String(distribution)
+            })
+        });
+
+        result = await response.json();
+        console.log('Response:', result);
+    } catch (error) {
+        fetchError = error;
+        console.error('Fetch error:', fetchError);
+    }
+    return result
+}
+
+async function getStats(guesses, letters) {
+    /**
+     * Calls the API. Returns the 7 letters used for an active AnaGame
+     *
+     * @param fun_factor the minimum number of anagrams in the game
+     * @returns {int[]} The reduced list of possible secret words
+     */
+
+    let fetchError = null;
+    let result = null;
+
+    console.log("Sending:", JSON.stringify({
+        guesses: guesses,
+        letters: letters
+    }));
+
+    try {
+
+        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_calc_stats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                guesses: guesses,
+                letters: letters
+            })
+        });
+
+        result = await response.json();
+        console.log('Response:', result);
+    } catch (error) {
+        fetchError = error;
+        console.error('Fetch error:', fetchError);
+    }
+    return result
+}
+
+/*
 Start game logic
 */
 let play_button = document.getElementById('play-button');
@@ -66,47 +149,6 @@ play_button.addEventListener("click", async () => {
     updateTimer();
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
-
-async function getLetters(fun_factor, distribution) {
-    /**
-     * Calls the API. Returns the 7 letters used for an active AnaGame
-     *
-     * @param fun_factor the minimum number of anagrams in the game
-     * @returns {int[]} The reduced list of possible secret words
-     */
-
-    let fetchError = null;
-    let result = null;
-    if (fun_factor < 0 || fun_factor > MAX_FUN_FACTOR) {
-        console.warn("Fun factor out of bounds.");
-        return;
-    }
-
-    console.log("Sending:", JSON.stringify({
-        fun_factor: fun_factor,
-        distribution: distribution
-    }));
-
-    try {
-        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_get_letters', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                fun_factor: parseInt(fun_factor),
-                distribution: String(distribution)
-            })
-        });
-
-        result = await response.json();
-        console.log('Response:', result);
-    } catch (error) {
-        fetchError = error;
-        console.error('Fetch error:', fetchError);
-    }
-    return result
-}
 
 function updateTiles(letters) {
     const tiles = document.querySelectorAll('.tile');
@@ -228,44 +270,6 @@ function endGame() {
 
     // Display stats
     displayStats(stats);
-}
-
-async function getStats(guesses, letters) {
-    /**
-     * Calls the API. Returns the 7 letters used for an active AnaGame
-     *
-     * @param fun_factor the minimum number of anagrams in the game
-     * @returns {int[]} The reduced list of possible secret words
-     */
-
-    let fetchError = null;
-    let result = null;
-
-    console.log("Sending:", JSON.stringify({
-        guesses: guesses,
-        letters: letters
-    }));
-
-    try {
-
-        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_calc_stats"', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                guesses: guesses,
-                letters: letters
-            })
-        });
-
-        result = await response.json();
-        console.log('Response:', result);
-    } catch (error) {
-        fetchError = error;
-        console.error('Fetch error:', fetchError);
-    }
-    return result
 }
 
 function displayStats(stats) {
