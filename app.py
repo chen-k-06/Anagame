@@ -1,4 +1,5 @@
-#api calls
+# api calls
+# actual endpoint is https://api-hosting-cdnc.onrender.com
 from AnagramExplorer import AnagramExplorer
 from valid_anagame_words import get_valid_word_list
 from anagame import calc_stats, generate_letters

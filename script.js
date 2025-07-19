@@ -35,7 +35,7 @@ play_button.addEventListener("click", async () => {
 
     // make API call for letters
     let letters = getLetters(fun_factor, distrbution_value);
-    timer.textContent = "...";
+    timer.textContent = ". . .";
 
     // disable play button and slider
     document.getElementById('slider').disabled = true;
@@ -88,8 +88,7 @@ async function getLetters(fun_factor, distribution) {
     }));
 
     try {
-
-        const response = await fetch('https://anagame.onrender.com/get_letters', {
+        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_get_letters', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -249,7 +248,7 @@ async function getStats(guesses, letters) {
 
     try {
 
-        const response = await fetch('https://anagame.onrender.com/calc_stats"', {
+        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_calc_stats"', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
