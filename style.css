@@ -231,6 +231,12 @@ button:hover {
     border-width: 5px;
 }
 
+@media (max-height: 400px) {
+    body {
+        background-color: pink;
+    }
+}
+
 @media (max-width: 780px) {
     #left-container #top-bar {
         display: block;

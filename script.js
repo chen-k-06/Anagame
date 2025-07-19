@@ -232,7 +232,9 @@ function get_pair(guess) {
 /*
 Timer function / end game logic
 */
-let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
+// let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
+let timeLeft = 6 * 100; // 6 seconds -> 60 * 1000 milliseconds FOR TESTING
+
 const timer = document.getElementById('timer');
 
 function updateTimer() {
