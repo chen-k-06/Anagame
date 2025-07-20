@@ -68,8 +68,14 @@ button:hover {
 }
 
 .disabled {
-    background-color: #b09c83;
+    color: red;
+    background-color: white;
     pointer-events: none;
+}
+
+#play-button.disabled {
+    color: #bda78d;
+    background-color: #E9CDAB;
 }
 
 /* tiles */
@@ -229,12 +235,6 @@ button:hover {
     border-radius: 20px;
     text-transform: uppercase;
     border-width: 5px;
-}
-
-@media (max-height: 400px) {
-    body {
-        background-color: pink;
-    }
 }
 
 @media (max-width: 780px) {
