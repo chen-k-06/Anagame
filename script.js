@@ -6,7 +6,7 @@ const tileCount = 7;
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 const timer = document.getElementById('timer');
-const invalid_pair = ["", ""]
+const invalid_pair = ["-1", "=1"]
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
 let letters = [];
