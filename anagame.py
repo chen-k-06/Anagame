@@ -170,9 +170,13 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
     stats["skill"] = 0    #truncated int percentage representing unique guessed words out of all possible unique anagram words
     stats["guessed"] = set() #unique valid guessed words
     stats["not guessed"] = set() #unique words the player could have guessed, but didn’t
-    ### BEGIN SOLUTION
 
-    valid_word_list = get_valid_word_list() # all valid words, regardless of what letters they contain
+    guesses_copy = []
+    for guess in guesses: 
+        temp = parse_guess(tuple(guess))
+        guesses_copy.append(temp)
+
+    guesses = guesses_copy
 
     for guess in guesses: 
        if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
@@ -229,8 +233,6 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
 
     return stats
         
-    ### END SOLUTION 
-
 def display_stats(stats):
     '''Prints a string representation of the game results
 

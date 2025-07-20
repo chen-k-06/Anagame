@@ -5,6 +5,7 @@ const MAX_FUN_FACTOR = 20;
 const tileCount = 7;
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
+const timer = document.getElementById('timer');
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
 let letters = [];
@@ -14,6 +15,7 @@ let pairs = []; // list of divs, meant to create elements for formatting
 let currentGuess = "";
 let guessCount = 0;
 let distrbution_value;
+let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
 if (distToggle.value === "1") {
     console.log("Mode: SCRABBLE");
@@ -184,7 +186,7 @@ document.addEventListener('keydown', async function (event) {
     }
     let key = event.key;
     if (key === 'Enter') {
-        if (in_game == true && currentGuess != null && currentGuess.length >= MIN_WORD_LENGTH && currentGuess.length <= 2 * MAX_WORD_LENGTH + 2) {
+        if (in_game == true && currentGuess != null) {
             // get feedback. log all relevant values into lists
             console.log('Submitting guess:', currentGuess);
             let anagram_pair = get_pair(currentGuess);
@@ -227,22 +229,23 @@ function get_pair(guess) {
     }
 
     let word1 = guess.slice(0, index);
-    let word2 = guess.slice(index + 2, guess.length);
+    let word2 = guess.slice(index + 1, guess.length); // skip comma
     word1 = word1.trim();
     word2 = word2.trim();
+
+    // check for multiple commas 
+    if (word1.indexOf(',') != -1 || word2.indexOf(',') != -1) {
+        return [-1, -1];
+    }
+
     return [word1, word2];
 }
 
 /*
 Timer function / end game logic
 */
-// let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
-let timeLeft = 6 * 100; // 6 seconds -> 6 * 1000 milliseconds FOR TESTING
-
-const timer = document.getElementById('timer');
 
 function updateTimer() {
-    // timeLeft = 0
     const seconds = Math.floor(timeLeft / 100);
     const ms = Math.floor((timeLeft % 100));
     timer.textContent = `${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
@@ -282,8 +285,11 @@ function displayStats(stats) {
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
+        if (guess == [-1, -1]) {
+            continue;
+        }
         console.log("Processing guess \"", guesses[i], "\".");
-        if (!valid_words.includes(guesses[i])) {
+        if (valid_words.includes(guesses[i])) {
             guesses[i].classList.add('correct')
         }
         else {
