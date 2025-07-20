@@ -6,6 +6,7 @@ const tileCount = 7;
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 const timer = document.getElementById('timer');
+const invalid_pair = ["", ""]
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
 let letters = [];
@@ -225,7 +226,7 @@ function get_pair(guess) {
     const index = guess.indexOf(',');
     if (index == -1) {
         // comma not found
-        return [-1, -1];
+        return invalid_pair;
     }
 
     let word1 = guess.slice(0, index);
@@ -235,7 +236,7 @@ function get_pair(guess) {
 
     // check for multiple commas 
     if (word1.indexOf(',') != -1 || word2.indexOf(',') != -1) {
-        return [-1, -1];
+        return invalid_pair;
     }
 
     return [word1, word2];
@@ -292,7 +293,7 @@ function displayStats(stats) {
     for (let i = 0; i < guesses.length; i++) {
         let guess = guesses[i];
         console.log("Processing guess \"", guesses[i], "\".");
-        if (guess == [-1, -1]) {
+        if (guess == invalid_pair) {
             guesses[i].classList.add('incorrect')
         }
         else if (valid_words.includes(guesses[i])) {
