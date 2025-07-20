@@ -1,3 +1,4 @@
+// https://api-hosting-cdnc.onrender.com (FastAPI endpoint)
 const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 7;
 const MAX_FUN_FACTOR = 20;
@@ -7,6 +8,7 @@ const distToggle = document.getElementById("scrabble-uniform");
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
 let letters = [];
+let letters_recieved = [];
 let guesses = []; // list of strings, send to python code to calculate correct / incorrect etc
 let pairs = []; // list of divs, meant to create elements for formatting 
 let currentGuess = "";
@@ -142,7 +144,7 @@ play_button.addEventListener("click", async () => {
     timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
     // populate tiles 
-    const letters_recieved = await letters;
+    letters_recieved = await letters;
     updateTiles(letters_recieved);
 
     // timer start
@@ -267,7 +269,7 @@ function endGame() {
     console.log("Game over.");
 
     // Make API call to get stats
-    stats = getStats(guesses, letters);
+    stats = getStats(guesses, letters_recieved);
 
     // Display stats
     displayStats(stats);
