@@ -283,6 +283,11 @@ function displayStats(stats) {
     console.log("Guesses: ", guesses);
     let valid_words = stats[0];
 
+    if (valid_words == null) {
+        console.log("No valid words.");
+        return;
+    }
+
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
         let guess = guesses[i];
