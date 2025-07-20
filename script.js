@@ -279,9 +279,9 @@ async function endGame() {
 }
 
 function displayStats(stats) {
-    console.log("accuracy, valid_guesses, invalid_guesses, skill, final score");
+    console.log("valid_guesses, invalid_guesses, score, accuracy, skill, guessed, not guessed");
     console.log("Guesses: ", guesses);
-    let valid_words = stats["valid"];
+    let valid_words = stats[0];
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
@@ -297,10 +297,6 @@ function displayStats(stats) {
             guesses[i].classList.add('incorrect')
         }
     }
-}
-
-function areArraysEq(x, y) {
-    return true;
 }
 
 /*
