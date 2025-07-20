@@ -285,6 +285,7 @@ function displayStats(stats) {
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
+        let guess = guesses[i];
         if (guess == [-1, -1]) {
             continue;
         }
