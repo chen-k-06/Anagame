@@ -261,7 +261,7 @@ function updateTimer() {
 /*
 End of game logic 
 */
-function endGame() {
+async function endGame() {
     in_game = false;
     slider.disabled = false;
     slider.classList.remove("disabled");
@@ -272,7 +272,7 @@ function endGame() {
     console.log("Game over.");
 
     // Make API call to get stats
-    stats = getStats(guesses, letters_recieved);
+    stats = await getStats(guesses, letters_recieved);
 
     // Display stats
     displayStats(stats);
@@ -286,11 +286,11 @@ function displayStats(stats) {
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
         let guess = guesses[i];
-        if (guess == [-1, -1]) {
-            continue;
-        }
         console.log("Processing guess \"", guesses[i], "\".");
-        if (valid_words.includes(guesses[i])) {
+        if (guess == [-1, -1]) {
+            guesses[i].classList.add('incorrect')
+        }
+        else if (valid_words.includes(guesses[i])) {
             guesses[i].classList.add('correct')
         }
         else {
