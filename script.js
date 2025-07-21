@@ -298,7 +298,7 @@ function displayStats(stats) {
         console.log("Processing pair / div \"", guess, "\".");
         console.log("guess: ", guesses[i])
         console.log("equality: ", arraysEqual(valid_guesses, guesses[i]))
-        if (arraysEqual(guesses[i], guess)) {
+        if (arraysEqual(valid_guesses, guesses[i])) {
             guess.classList.add('correct')
         }
         else {
@@ -309,9 +309,12 @@ function displayStats(stats) {
 
 function arraysEqual(a, b) {
     // a is an array of possible correct answers 
+    let word2 = b;
+    word2.sort();
+
     for (let i = 0; i < a.length; i++) {
         let word1 = a[i]; // ["ATE", "EAT"]
-        let word2 = b;
+        word1.sort();
         console.log("word 1:", word1, " word2: ", word2)
 
         let word1_1 = word1[0]
