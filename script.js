@@ -1,21 +1,30 @@
-// https://api-hosting-cdnc.onrender.com (FastAPI endpoint)
+// =======================
+// Constants & Globals
+// =======================
+
 const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 7;
 const MAX_FUN_FACTOR = 20;
 const tileCount = 7;
+
 const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 const timer = document.getElementById('timer');
-const invalid_pair = ["-1", "=1"]
+
+const invalid_pair = ["-1", "=1"];
+
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
+
 let letters = [];
 let letters_recieved = [];
 let guesses = []; // list of strings, send to python code to calculate correct / incorrect etc
-let pairs = []; // list of divs, meant to create elements for formatting 
+let pairs = []; // list of divs, meant to create elements for formatting
+
 let currentGuess = "";
 let guessCount = 0;
 let distrbution_value;
+
 let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
 if (distToggle.value === "1") {
@@ -26,9 +35,9 @@ if (distToggle.value === "1") {
     distrbution_value = "uniform"
 }
 
-/*
-API call functions
-*/
+// =======================
+// API call functions
+// =======================
 
 async function getLetters(fun_factor, distribution) {
     /**
@@ -109,9 +118,10 @@ async function getStats(guesses, letters) {
     return result
 }
 
-/*
-Start game logic
-*/
+// =======================
+// Game start logic & UI setup
+// =======================
+
 let play_button = document.getElementById('play-button');
 let in_game = false;
 let timerId = 0;
@@ -135,7 +145,7 @@ play_button.addEventListener("click", async () => {
     guesses = [];
     pairs = [];
 
-    // create first div for first word 
+    // create first div for first word
     pairs[guessCount] = document.createElement("div");
     document.getElementById("played-words").appendChild(pairs[guessCount]);
 
@@ -146,7 +156,7 @@ play_button.addEventListener("click", async () => {
     distToggle.classList.add("disabled");
     timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
-    // populate tiles 
+    // populate tiles
     letters_recieved = await letters;
     updateTiles(letters_recieved);
 
@@ -155,6 +165,10 @@ play_button.addEventListener("click", async () => {
     timerId = setInterval(updateTimer, 10); // call updateTimer every millisecond
 });
 
+// =======================
+// Tile update function
+// =======================
+
 function updateTiles(letters) {
     const tiles = document.querySelectorAll('.tile');
     for (let i = 0; i < tileCount; i++) {
@@ -162,9 +176,9 @@ function updateTiles(letters) {
     }
 }
 
-/*
-Scrabble / uniform distrbution toggle logic
-*/
+// =======================
+// Distribution toggle & slider logic
+// =======================
 
 distToggle.addEventListener("input", () => {
     if (distToggle.value === "1") {
@@ -178,9 +192,10 @@ slider.addEventListener("input", () => {
     fun_factor = MAX_FUN_FACTOR - slider.value;
 });
 
-/*
-Word entry event listener logic 
-*/
+// =======================
+// Word entry event listener logic
+// =======================
+
 document.addEventListener('keydown', async function (event) {
     if (in_game == false) {
         return;
@@ -202,7 +217,7 @@ document.addEventListener('keydown', async function (event) {
         }
     }
 
-    // backspace key logic 
+    // backspace key logic
     else if (key === 'Backspace' && currentGuess.length != 0) {
         event.preventDefault();
         currentGuess = currentGuess.slice(0, -1);
@@ -222,6 +237,10 @@ document.addEventListener('keydown', async function (event) {
     }
 });
 
+// =======================
+// Guess parsing function
+// =======================
+
 function get_pair(guess) {
     const index = guess.indexOf(',');
     if (index == -1) {
@@ -234,7 +253,7 @@ function get_pair(guess) {
     word1 = word1.trim();
     word2 = word2.trim();
 
-    // check for multiple commas 
+    // check for multiple commas
     if (word1.indexOf(',') != -1 || word2.indexOf(',') != -1) {
         return invalid_pair;
     }
@@ -242,9 +261,9 @@ function get_pair(guess) {
     return [word1, word2];
 }
 
-/*
-Timer function / end game logic
-*/
+// =======================
+// Timer & end game logic
+// =======================
 
 function updateTimer() {
     const seconds = Math.floor(timeLeft / 100);
@@ -259,9 +278,6 @@ function updateTimer() {
     timeLeft -= 1;
 }
 
-/*
-End of game logic 
-*/
 async function endGame() {
     in_game = false;
     slider.disabled = false;
@@ -282,6 +298,10 @@ async function endGame() {
     // Display stats
     displayStats(stats);
 }
+
+// =======================
+// Display stats / color coding guesses
+// =======================
 
 function displayStats(stats) {
     console.log("valid_guesses, invalid_guesses, score, accuracy, skill, guessed, not guessed");
@@ -309,6 +329,7 @@ function displayStats(stats) {
 
 function arraysEqual(a, b) {
     // a is an array of possible correct answers 
+
     let word2 = b;
     word2.sort();
 
@@ -338,6 +359,7 @@ function arraysEqual(a, b) {
 
         let flag2 = true;
         // check the second words 
+
         for (let j = 0; j < word1_2.length; j++) {
             if (word1_2[j].toLowerCase() !== word2_2[j].toLowerCase()) {
                 flag2 = false;
@@ -352,9 +374,10 @@ function arraysEqual(a, b) {
     return false;
 }
 
-/*
-Slider styling
-*/
+// =======================
+// Slider styling
+// =======================
+
 function updateSliderBackground(slider) {
     const percent = ((slider.value - slider.min) / (slider.max - slider.min) * 100) + 2;
     slider.style.background = `linear-gradient(to right, red 0%, red ${percent}%, white ${percent}%, white 100%)`;
@@ -363,9 +386,10 @@ function updateSliderBackground(slider) {
 slider.addEventListener('input', () => updateSliderBackground(slider));
 updateSliderBackground(slider);
 
-/*
-Toggle styling 
-*/
+// =======================
+// Distribution toggle styling logic
+// =======================
+
 distToggle.addEventListener("mousedown", (e) => {
     if (distToggle.value === "0") {
         distrbution_value = "scrabble"
@@ -376,4 +400,35 @@ distToggle.addEventListener("mousedown", (e) => {
         distToggle.value = 0;
     }
     e.preventDefault();
+});
+
+// =======================
+// Help button event listeners
+// =======================
+
+document.getElementById("how-to").addEventListener("click", () => {
+
+    // if the help button is click, display the popup with the relevant game information
+    console.log('How to button was clicked!');
+    const how_to_popup = document.getElementById("how-to-popup");
+    const message = document.getElementById("how-to-message");
+    message.innerHTML = `Wordle is a web-based word game developed by Josh Wardle.<br>
+    Players have six attempts to guess a five-letter secret word, with feedback given for each guess.<br>
+    <br>
+    A green tile indicates that the letter is correct and in the right position.<br>
+    A yellow tile means the letter is in the secret word but in a different position.<br>
+    A grey tile shows that the letter does not appear in the secret word at all.<br>
+    <br>
+    On the left, you’ll see the optimal possible guesses along with the amount of information (in bits) each provides.<br>
+    In information theory, one bit of information is defined as −log⁡2(p), where p is the probability of an event occurring.<br>
+    Therefore, a less likely event yields more bits of information and is considered a better guess.<br>
+    <br>
+    After entering your guess, the actual amount of information gained (in bits) will be displayed in red on the right.<br>
+    On the left, you’ll also see how many bits of information remain in the word list and how many words are still possible candidates for the secret word.`
+    how_to_popup.classList.remove("hidden");
+});
+
+document.getElementById("close-popup-button").addEventListener("click", () => {
+    const how_to_popup = document.getElementById("how-to-popup");
+    how_to_popup.classList.add("hidden");
 });
