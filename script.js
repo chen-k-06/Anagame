@@ -286,12 +286,15 @@ async function endGame() {
 function displayStats(stats) {
     console.log("valid_guesses, invalid_guesses, score, accuracy, skill, guessed, not guessed");
     console.log("Guesses: ", guesses);
-    let valid_words = stats[0];
-
+    let valid_guesses = stats[0];
+    let invalid_guesses = stats[1];
     if (valid_words == null) {
         console.log("No valid words.");
         return;
     }
+
+    console.log("valid guesses: ", valid_guesses)
+    console.log("invalid guesses: ", invalid_guesses)
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
@@ -300,7 +303,7 @@ function displayStats(stats) {
         if (guess == invalid_pair) {
             guesses[i].classList.add('incorrect')
         }
-        else if (valid_words.includes(guesses[i])) {
+        else if (valid_guesses.includes(guesses[i])) {
             guesses[i].classList.add('correct')
         }
         else {
