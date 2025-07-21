@@ -274,6 +274,10 @@ async function endGame() {
 
     // Make API call to get stats
     stats = await getStats(guesses, letters_recieved);
+    if (!stats) {
+        console.warn("No stats received.");
+        return;
+    }
 
     // Display stats
     displayStats(stats);
