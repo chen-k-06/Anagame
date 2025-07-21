@@ -293,7 +293,7 @@ function displayStats(stats) {
     console.log("invalid guesses: ", invalid_guesses)
 
     // apply coloring for correct / incorrect
-    for (let i = 0; i < pairs.length; i++) {
+    for (let i = 0; i < guesses.length; i++) {
         let guess = pairs[i];
         console.log("Processing pair / div \"", guess, "\".");
         console.log("guess: ", guesses[i])
@@ -309,19 +309,46 @@ function displayStats(stats) {
 
 function arraysEqual(a, b) {
     // a is an array of possible correct answers 
-    flag = false;
     for (let i = 0; i < a.length; i++) {
-        let word1 = a[i];
+        let word1 = a[i]; // ["ATE", "EAT"]
         let word2 = b;
+        console.log("word 1:", word1, " word2: ", word2)
 
-        if (word1.length !== word2.length) continue;
-        for (let j = 0; j < word1.length; j++) {
-            if (word1[i] !== word2[i]) continue;
+        let word1_1 = word1[0]
+        let word1_2 = word1[1]
+
+        let word2_1 = word2[0]
+        let word2_2 = word2[1]
+
+        if (word1_1.length !== word2_1.length) continue;
+        if (word1_2.length !== word2_2.length) continue;
+
+        let flag = true;
+
+        // check the first words
+        for (let j = 0; j < word1_1.length; j++) {
+            if (word1_1[j].toLowerCase() !== word2_1[j].toLowerCase()) {
+                flag = false;
+                break;
+            }
         }
-        flag = true;
-        break;
+        if (flag) {
+            return flag;
+        }
+
+        // check the second words 
+        for (let j = 0; j < word1_2.length; j++) {
+            if (word1_2[j].toLowerCase() !== word2_2[j].toLowerCase()) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            return flag;
+        }
     }
-    return flag;
+    return false;
 }
 
 /*
