@@ -297,7 +297,7 @@ function displayStats(stats) {
         let guess = pairs[i];
         console.log("Processing pair / div \"", guess, "\".");
         console.log("guess: ", guesses[i])
-        console.log("equality: ", arraysEqual(guesses[i], guess))
+        console.log("equality: ", arraysEqual(valid_guesses, guesses[i]))
         if (arraysEqual(guesses[i], guess)) {
             guess.classList.add('correct')
         }
@@ -323,29 +323,27 @@ function arraysEqual(a, b) {
         if (word1_1.length !== word2_1.length) continue;
         if (word1_2.length !== word2_2.length) continue;
 
-        let flag = true;
+        let flag1 = true;
 
         // check the first words
         for (let j = 0; j < word1_1.length; j++) {
             if (word1_1[j].toLowerCase() !== word2_1[j].toLowerCase()) {
-                flag = false;
+                flag1 = false;
                 break;
             }
         }
-        if (flag) {
-            return flag;
-        }
 
+        let flag2 = true;
         // check the second words 
         for (let j = 0; j < word1_2.length; j++) {
             if (word1_2[j].toLowerCase() !== word2_2[j].toLowerCase()) {
-                flag = false;
+                flag2 = false;
                 break;
             }
         }
 
-        if (flag) {
-            return flag;
+        if (flag1 && flag2) {
+            return true;
         }
     }
     return false;
