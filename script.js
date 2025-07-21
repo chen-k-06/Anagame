@@ -118,6 +118,42 @@ async function getStats(guesses, letters) {
     return result
 }
 
+
+async function getHint(letters) {
+    /**
+     * Calls the API. Returns the 7 letters used for an active AnaGame
+     *
+     * @param fun_factor the minimum number of anagrams in the game
+     * @returns {int[]} The reduced list of possible secret words
+     */
+
+    let fetchError = null;
+    let result = null;
+
+    console.log("Sending:", JSON.stringify({
+        letters: letters
+    }));
+
+    try {
+        const response = await fetch('https://api-hosting-cdnc.onrender.com/anagame_get_hint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                letters: letters
+            })
+        });
+
+        result = await response.json();
+        console.log('Response:', result);
+    } catch (error) {
+        fetchError = error;
+        console.error('Fetch error:', fetchError);
+    }
+    return result
+}
+
 // =======================
 // Game start logic & UI setup
 // =======================
@@ -175,22 +211,6 @@ function updateTiles(letters) {
         tiles[i].textContent = letters[i]
     }
 }
-
-// =======================
-// Distribution toggle & slider logic
-// =======================
-
-distToggle.addEventListener("input", () => {
-    if (distToggle.value === "1") {
-        console.log("Mode: SCRABBLE");
-    } else {
-        console.log("Mode: UNIFORM");
-    }
-});
-
-slider.addEventListener("input", () => {
-    fun_factor = MAX_FUN_FACTOR - slider.value;
-});
 
 // =======================
 // Word entry event listener logic
@@ -375,6 +395,22 @@ function arraysEqual(a, b) {
 }
 
 // =======================
+// Distribution toggle & slider logic
+// =======================
+
+distToggle.addEventListener("input", () => {
+    if (distToggle.value === "1") {
+        console.log("Mode: SCRABBLE");
+    } else {
+        console.log("Mode: UNIFORM");
+    }
+});
+
+slider.addEventListener("input", () => {
+    fun_factor = MAX_FUN_FACTOR - slider.value;
+});
+
+// =======================
 // Slider styling
 // =======================
 
@@ -421,4 +457,22 @@ document.getElementById("how-to").addEventListener("click", () => {
 document.getElementById("close-popup-button").addEventListener("click", () => {
     const how_to_popup = document.getElementById("how-to-popup");
     how_to_popup.classList.add("hidden");
+});
+
+// =======================
+// Hint button event listeners
+// =======================
+
+document.getElementById("hint").addEventListener("click", () => {
+    console.log('Hint button was clicked!');
+    const how_to_popup = document.getElementById("hint-popup");
+    const message = document.getElementById("hint-content");
+    let hint = getHint();
+    message.innerHTML = `Try working with ${hint}`
+    how_to_popup.classList.remove("hidden");
+});
+
+document.getElementById("close-hint-button").addEventListener("click", () => {
+    const hint_popup = document.getElementById("hint-popup");
+    hint_popup.classList.add("hidden");
 });
