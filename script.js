@@ -296,7 +296,7 @@ function displayStats(stats) {
     for (let i = 0; i < pairs.length; i++) {
         let guess = pairs[i];
         console.log("Processing pair / div \"", guess, "\".");
-        console.log("guess: ".guesses[i])
+        console.log("guess: ", guesses[i])
         if (valid_guesses.includes(guesses[i])) {
             guess.classList.add('correct')
         }
