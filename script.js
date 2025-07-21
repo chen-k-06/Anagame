@@ -286,8 +286,8 @@ async function endGame() {
 function displayStats(stats) {
     console.log("valid_guesses, invalid_guesses, score, accuracy, skill, guessed, not guessed");
     console.log("Guesses: ", guesses);
-    let valid_guesses = stats[0];
-    let invalid_guesses = stats[1];
+    let valid_guesses = stats.valid_guesses;
+    let invalid_guesses = stats.invalid_guesses;
 
     console.log("valid guesses: ", valid_guesses)
     console.log("invalid guesses: ", invalid_guesses)
