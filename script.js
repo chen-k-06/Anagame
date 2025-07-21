@@ -412,8 +412,9 @@ document.getElementById("how-to").addEventListener("click", () => {
     console.log('How to button was clicked!');
     const how_to_popup = document.getElementById("how-to-popup");
     const message = document.getElementById("how-to-message");
-    message.innerHTML = `In Anagame, you'll recieve 7 letters in the leftmost tiles. Enter pairs of anagrams, using these letters exclusively, to win points. <br>
-    The more unique words you have, the more points you'll win.<br><br><strong>Submit anagram pairs by seperating the two words with a comma, and then hitting enter.</strong><br><br>Correct anagrams will turn green; incorrect anagrams will turn red.<br>`
+    message.innerHTML = `In Anagame, you're given 7 letters. <br>Use them to find pairs of valid anagrams separated by a comma, then press Enter to submit.<br>
+    Correct pairs turn green, incorrect ones turn red.<br>
+    The more valid, unique words you find, the higher your score.`
     how_to_popup.classList.remove("hidden");
 });
 

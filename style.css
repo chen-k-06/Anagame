@@ -73,6 +73,41 @@ button:hover {
     pointer-events: none;
 }
 
+.hidden {
+    display: none;
+}
+
+#how-to-popup {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: thin;
+    width: calc(100% - 80px);
+    margin-bottom: 40px;
+    /* transform: translateX(50%); */
+}
+
+#demo-video {
+    margin: auto;
+    margin-top: 10px;
+}
+
+#close-popup-button {
+    font-size: 30px;
+    margin: auto;
+    margin-top: 45px;
+}
+
+#close-popup-button {
+    margin: auto;
+}
+
 #play-button.disabled {
     color: #bda78d;
     background-color: #E9CDAB;
