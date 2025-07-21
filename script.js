@@ -412,19 +412,8 @@ document.getElementById("how-to").addEventListener("click", () => {
     console.log('How to button was clicked!');
     const how_to_popup = document.getElementById("how-to-popup");
     const message = document.getElementById("how-to-message");
-    message.innerHTML = `Wordle is a web-based word game developed by Josh Wardle.<br>
-    Players have six attempts to guess a five-letter secret word, with feedback given for each guess.<br>
-    <br>
-    A green tile indicates that the letter is correct and in the right position.<br>
-    A yellow tile means the letter is in the secret word but in a different position.<br>
-    A grey tile shows that the letter does not appear in the secret word at all.<br>
-    <br>
-    On the left, you’ll see the optimal possible guesses along with the amount of information (in bits) each provides.<br>
-    In information theory, one bit of information is defined as −log⁡2(p), where p is the probability of an event occurring.<br>
-    Therefore, a less likely event yields more bits of information and is considered a better guess.<br>
-    <br>
-    After entering your guess, the actual amount of information gained (in bits) will be displayed in red on the right.<br>
-    On the left, you’ll also see how many bits of information remain in the word list and how many words are still possible candidates for the secret word.`
+    message.innerHTML = `In Anagame, you'll recieve 7 letters in the leftmost tiles. Enter pairs of anagrams, using these letters exclusively, to win points. <br>
+    The more unique words you have, the more points you'll win.<br><br><strong>Submit anagram pairs by seperating the two words with a comma, and then hitting enter.</strong><br><br>Correct anagrams will turn green; incorrect anagrams will turn red.<br>`
     how_to_popup.classList.remove("hidden");
 });
 

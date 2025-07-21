@@ -36,7 +36,7 @@
             <div id="clock-bar">TIME REMAINING:&nbsp;&nbsp;
                 <div id="timer">60:00</div> SECONDS
             </div>
-            <div id="played-words">ENTER ANAGRAM PAIRS (ex: WORD1, WORD2): </div>
+            <div id="played-words">ENTER ANAGRAM PAIRS (ex: ate, eat): </div>
             <div id="stats">STATS: </div>
         </div>
     </div>
@@ -44,6 +44,12 @@
         <a href=""> <button id="refresh">↻</button>
         </a>
         <button id="how-to">How to play</button>
+        <div id="how-to-popup" class="popup hidden">
+            <div class="how-to-content">
+                <h2 id="how-to-message"></h2>
+                <button id="close-popup-button">Play game!</button>
+            </div>
+        </div>
         <button id="hint">Get a hint</button>
         <!-- Needs javascript -->
         <a href="https://github.com/chen-k-06/Anagame" target="_blank"> <button id="github">GitHub Repo</button>
