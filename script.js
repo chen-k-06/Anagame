@@ -288,10 +288,6 @@ function displayStats(stats) {
     console.log("Guesses: ", guesses);
     let valid_guesses = stats[0];
     let invalid_guesses = stats[1];
-    if (valid_guesses == null) {
-        console.log("No valid words.");
-        return;
-    }
 
     console.log("valid guesses: ", valid_guesses)
     console.log("invalid guesses: ", invalid_guesses)
@@ -300,10 +296,7 @@ function displayStats(stats) {
     for (let i = 0; i < guesses.length; i++) {
         let guess = guesses[i];
         console.log("Processing guess \"", guesses[i], "\".");
-        if (guess == invalid_pair) {
-            guesses[i].classList.add('incorrect')
-        }
-        else if (valid_guesses.includes(guesses[i])) {
+        if (valid_guesses.includes(guesses[i])) {
             guesses[i].classList.add('correct')
         }
         else {
