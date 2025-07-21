@@ -288,7 +288,7 @@ function displayStats(stats) {
     console.log("Guesses: ", guesses);
     let valid_guesses = stats[0];
     let invalid_guesses = stats[1];
-    if (valid_words == null) {
+    if (valid_guesses == null) {
         console.log("No valid words.");
         return;
     }
