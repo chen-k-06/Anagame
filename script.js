@@ -297,13 +297,30 @@ function displayStats(stats) {
         let guess = pairs[i];
         console.log("Processing pair / div \"", guess, "\".");
         console.log("guess: ", guesses[i])
-        if (valid_guesses.includes(guesses[i])) {
+        if (arraysEqual(guesses[i], guess)) {
             guess.classList.add('correct')
         }
         else {
             guess.classList.add('incorrect')
         }
     }
+}
+
+function arraysEqual(a, b) {
+    // a is an array of possible correct answers 
+    flag = false;
+    for (let i = 0; i < a.length; i++) {
+        let word1 = a[i];
+        let word2 = b;
+
+        if (word1.length !== word2.length) continue;
+        for (let j = 0; j < word1.length; j++) {
+            if (word1[i] !== word12[i]) continue;
+        }
+        flag = true;
+        break;
+    }
+    return flag;
 }
 
 /*
