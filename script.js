@@ -294,13 +294,13 @@ function displayStats(stats) {
 
     // apply coloring for correct / incorrect
     for (let i = 0; i < guesses.length; i++) {
-        let guess = guesses[i];
-        console.log("Processing guess \"", guesses[i], "\".");
+        let guess = pairs[i];
+        console.log("Processing guess \"", guess, "\".");
         if (valid_guesses.includes(guesses[i])) {
-            guesses[i].classList.add('correct')
+            guess.classList.add('correct')
         }
         else {
-            guesses[i].classList.add('incorrect')
+            guess.classList.add('incorrect')
         }
     }
 }
