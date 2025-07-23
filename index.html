@@ -37,7 +37,12 @@
                 <div id="timer">60:00</div> SECONDS
             </div>
             <div id="played-words">ENTER ANAGRAM PAIRS (ex: ate, eat): </div>
-            <div id="stats">STATS: </div>
+            <div id="stats">STATS:
+                <div id="score_box"></div>
+                <div id="accuracy_box"></div>
+                <div id="skill_box"></div>
+                <div id="not_guessed_box"></div>
+            </div>
         </div>
     </div>
     <div id="lower-bar">
@@ -55,7 +60,7 @@
             </div>
         </div>
         <button id="hint">Get a hint</button>
-        <div id="hint-popup">
+        <div id="hint-popup" class="hidden">
             <p id="hint-content"></p>
             <button id="close-hint-button">Close</button>
         </div>

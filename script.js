@@ -345,6 +345,16 @@ function displayStats(stats) {
             guess.classList.add('incorrect')
         }
     }
+
+    let score_box = document.getElementById('score_box');
+    let accuracy_box = document.getElementById('accuracy_box');
+    let skill_box = document.getElementById('skill_box');
+    let not_guessed_box = document.getElementById('not_guessed_box');
+
+    score_box.textContent = `Score: ${stats.score}`;
+    accuracy_box.textContent = `Accuracy: ${stats.accuracy}`;
+    skill_box.textContent = `Skill: ${stats.skill}`;
+    not_guessed_box.textContent = `Words you could've used: ${stats.not_guessed_words}`;
 }
 
 function arraysEqual(a, b) {
