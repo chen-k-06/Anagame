@@ -250,6 +250,20 @@ button:hover {
     color: red;
 }
 
+#score_box {
+    display: inline-block;
+    margin: 5px;
+}
+
+#accuracy_box {
+    display: inline-block;
+    margin: 5px;
+}
+
+#skill_box {
+    display: inline-block;
+    margin: 5px;
+}
 
 #lower-bar {
     height: 10vh;
