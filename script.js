@@ -222,7 +222,7 @@ document.addEventListener('keydown', async function (event) {
     }
     let key = event.key;
     if (key === 'Enter') {
-        if (in_game == true && currentGuess != null) {
+        if (in_game == true && currentGuess.length != 0) {
             // get feedback. log all relevant values into lists
             pairs[guessCount].classList.add('submitted');
             console.log('Submitting guess:', currentGuess);
@@ -344,6 +344,7 @@ function displayStats(stats) {
             guess.classList.add('correct');
         }
         else {
+            guess.classList.remove('submitted');
             guess.classList.add('incorrect');
         }
     }

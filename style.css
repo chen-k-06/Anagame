@@ -104,10 +104,6 @@ button:hover {
     margin-top: 45px;
 }
 
-#close-popup-button {
-    margin: auto;
-}
-
 #play-button.disabled {
     color: #bda78d;
     background-color: #E9CDAB;
@@ -288,6 +284,21 @@ button:hover {
     border-radius: 20px;
     text-transform: uppercase;
     border-width: 5px;
+}
+
+#hint-popup {
+    position: fixed;
+    top: 20%;
+    left: 32%;
+    background-color: white;
+    margin: 30px;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 200;
+    width: calc(25% - 80px);
+    margin-bottom: 40px;
 }
 
 @media (max-width: 780px) {
