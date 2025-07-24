@@ -233,6 +233,8 @@ button:hover {
 #played-words div {
     display: inline-block;
     font-size: 23px;
+    margin-left: 10px;
+    margin-right: 10px;
     color: rgb(95, 95, 95);
 }
 
