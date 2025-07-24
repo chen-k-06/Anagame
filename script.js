@@ -223,7 +223,18 @@ document.addEventListener('keydown', async function (event) {
     let key = event.key;
     if (key === 'Enter') {
         if (in_game == true && currentGuess.length != 0) {
-            addNewGuess(pairs, guessCount);
+            // get feedback. log all relevant values into lists
+            pairs[guessCount].classList.add('submitted');
+            console.log('Submitting guess:', currentGuess);
+            let anagram_pair = get_pair(currentGuess);
+            guesses.push(anagram_pair)
+            currentGuess = "";
+            guessCount++;
+
+            // update the html with the new pair
+            console.log("Adding ", anagram_pair, " to guess list.");
+            pairs[guessCount] = document.createElement("div"); // create a new div for the next word
+            document.getElementById("played-words").appendChild(pairs[guessCount]);
         }
     }
 
@@ -272,25 +283,6 @@ function get_pair(guess) {
 }
 
 // =======================
-// Process new guess 
-// =======================
-
-function addNewGuess(pairs, guessCount) {
-    // get feedback. log all relevant values into lists
-    pairs[guessCount].classList.add('submitted');
-    console.log('Submitting guess:', currentGuess);
-    let anagram_pair = get_pair(currentGuess);
-    guesses.push(anagram_pair)
-    currentGuess = "";
-    guessCount++;
-
-    // update the html with the new pair
-    console.log("Adding ", anagram_pair, " to guess list.");
-    pairs[guessCount] = document.createElement("div"); // create a new div for the next word
-    document.getElementById("played-words").appendChild(pairs[guessCount]);
-}
-
-// =======================
 // Timer & end game logic
 // =======================
 
@@ -317,9 +309,15 @@ async function endGame() {
     distToggle.classList.remove("disabled");
     console.log("Game over.");
 
-    // process the final guess since enter may not be pressed 
-    if (pairs[guessCount].textContent != "") {
-        addNewGuess(pairs, guessCount);
+    // if enter not pressed, process the final guess
+    if (pairs[guessCount] != "") {
+        // get feedback. log all relevant values into lists
+        pairs[guessCount].classList.add('submitted');
+        console.log('Submitting guess:', currentGuess);
+        let anagram_pair = get_pair(currentGuess);
+        guesses.push(anagram_pair)
+        guessCount++;
+        console.log("Adding ", anagram_pair, " to guess list.");
     }
 
     // Make API call to get stats
