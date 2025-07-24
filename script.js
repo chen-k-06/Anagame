@@ -224,6 +224,7 @@ document.addEventListener('keydown', async function (event) {
     if (key === 'Enter') {
         if (in_game == true && currentGuess != null) {
             // get feedback. log all relevant values into lists
+            pairs[guessCount].classList.add('submitted');
             console.log('Submitting guess:', currentGuess);
             let anagram_pair = get_pair(currentGuess);
             guesses.push(anagram_pair)
@@ -241,7 +242,7 @@ document.addEventListener('keydown', async function (event) {
     else if (key === 'Backspace' && currentGuess.length != 0) {
         event.preventDefault();
         currentGuess = currentGuess.slice(0, -1);
-        console.log('Deleted. Current guess:', currentGuess);
+        console.log('Deleted. Current guess: ', currentGuess);
 
         // update the html with the backspace
         pairs[guessCount].textContent = currentGuess;
@@ -339,10 +340,11 @@ function displayStats(stats) {
         console.log("guess: ", guesses[i])
         console.log("equality: ", arraysEqual(valid_guesses, guesses[i]))
         if (arraysEqual(valid_guesses, guesses[i])) {
-            guess.classList.add('correct')
+            guess.classList.remove('submitted');
+            guess.classList.add('correct');
         }
         else {
-            guess.classList.add('incorrect')
+            guess.classList.add('incorrect');
         }
     }
 
@@ -352,7 +354,7 @@ function displayStats(stats) {
     let not_guessed_box = document.getElementById('not_guessed_box');
 
     score_box.textContent = `Score: ${stats.score}`;
-    accuracy_box.textContent = `Accuracy: ${stats.accuracy}`;
+    accuracy_box.textContent = `Accuracy: ${stats.accuracy}%`;
     skill_box.textContent = `Skill: ${stats.skill}`;
     not_guessed_reformated = reformat_stats(stats.not_guessed_words);
     not_guessed_box.textContent = `Words you could've used: ${not_guessed_reformated}`;
@@ -413,7 +415,9 @@ function reformat_stats(words) {
         let word = words[i];
         copy = copy + word + ", "
     }
+    return copy;
 }
+
 // =======================
 // Distribution toggle & slider logic
 // =======================

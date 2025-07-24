@@ -239,7 +239,7 @@ button:hover {
     font-size: 3vh;
     margin-left: 10px;
     margin-right: 10px;
-    color: rgb(71, 71, 71);
+    color: rgb(95, 95, 95);
 }
 
 #played-words .correct {
@@ -248,6 +248,10 @@ button:hover {
 
 #played-words .incorrect {
     color: red;
+}
+
+#played-words .submitted {
+    color: black;
 }
 
 #score_box {
