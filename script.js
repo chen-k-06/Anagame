@@ -354,7 +354,8 @@ function displayStats(stats) {
     score_box.textContent = `Score: ${stats.score}`;
     accuracy_box.textContent = `Accuracy: ${stats.accuracy}`;
     skill_box.textContent = `Skill: ${stats.skill}`;
-    not_guessed_box.textContent = `Words you could've used: ${stats.not_guessed_words}`;
+    not_guessed_reformated = reformat_stats(stats.not_guessed_words);
+    not_guessed_box.textContent = `Words you could've used: ${not_guessed_reformated}`;
 }
 
 function arraysEqual(a, b) {
@@ -368,11 +369,11 @@ function arraysEqual(a, b) {
         word1.sort();
         console.log("word 1:", word1, " word2: ", word2)
 
-        let word1_1 = word1[0]
-        let word1_2 = word1[1]
+        let word1_1 = word1[0];
+        let word1_2 = word1[1];
 
-        let word2_1 = word2[0]
-        let word2_2 = word2[1]
+        let word2_1 = word2[0];
+        let word2_2 = word2[1];
 
         if (word1_1.length !== word2_1.length) continue;
         if (word1_2.length !== word2_2.length) continue;
@@ -404,6 +405,15 @@ function arraysEqual(a, b) {
     return false;
 }
 
+function reformat_stats(words) {
+    // pre-sorted by prime hash / alphabetically 
+    // add spaces
+    copy = "";
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        copy = copy + word + ", "
+    }
+}
 // =======================
 // Distribution toggle & slider logic
 // =======================
