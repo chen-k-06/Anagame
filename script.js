@@ -124,7 +124,7 @@ async function getHint(letters) {
      * Calls the API. Returns the 7 letters used for an active AnaGame
      *
      * @param fun_factor the minimum number of anagrams in the game
-     * @returns {int[]} The reduced list of possible secret words
+     * @returns {str[]} The reduced list of possible secret words
      */
 
     let fetchError = null;
@@ -145,7 +145,7 @@ async function getHint(letters) {
             })
         });
 
-        result = await response.json();
+        result = await response.text();
         console.log('Response:', result);
     } catch (error) {
         fetchError = error;

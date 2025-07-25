@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
 
+/* ================
+   Base Styles
+=================== */
 body {
     background-color: #FFE1BE;
     font-size: 3vh;
@@ -25,20 +28,35 @@ button:hover {
     transition: all 0.2s ease-in-out;
 }
 
+.disabled {
+    color: red;
+    background-color: white;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ================
+   Main Container
+=================== */
 #main-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* ================
+   Left Panel
+=================== */
 #left-container {
     margin: 5px;
-    display: flex;
+    display: block;
     width: calc(50% - 10px);
     height: 70vh;
     padding: 20px;
     margin-top: 0;
-    display: block;
 }
 
 #left-container #top-bar {
@@ -67,49 +85,14 @@ button:hover {
     border-radius: 20px;
 }
 
-.disabled {
-    color: red;
-    background-color: white;
-    pointer-events: none;
-}
-
-.hidden {
-    display: none;
-}
-
-#how-to-popup {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: white;
-    margin: 30px;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 18px;
-    text-align: center;
-    font-weight: thin;
-    width: calc(100% - 80px);
-    margin-bottom: 40px;
-    /* transform: translateX(50%); */
-}
-
-#demo-video {
-    margin: auto;
-    margin-top: 10px;
-}
-
-#close-popup-button {
-    font-size: 30px;
-    margin: auto;
-    margin-top: 45px;
-}
-
 #play-button.disabled {
     color: #bda78d;
     background-color: #E9CDAB;
 }
 
-/* tiles */
+/* ================
+   Tile Area
+=================== */
 #left-container #left-center {
     height: 70vh;
     display: block;
@@ -121,7 +104,6 @@ button:hover {
     position: absolute;
     overflow: hidden;
     display: flex;
-    /* justify-self: center; */
     justify-content: center;
     align-items: center;
     height: 9vh;
@@ -133,6 +115,7 @@ button:hover {
     font-size: 6vh;
 }
 
+/* Tile Positions */
 #tile-0 {
     top: 15px;
     transform: rotate(-20deg);
@@ -174,8 +157,9 @@ button:hover {
     transform: rotate(35deg);
 }
 
-/* Right side styles */
-
+/* ================
+   Right Panel
+=================== */
 #right-container {
     background-color: #E9CDAB;
     margin: 5px;
@@ -216,12 +200,11 @@ button:hover {
 }
 
 #timer {
-    display: inline;
+    display: inline-block;
     align-items: center;
     justify-content: center;
     font-size: 5vh;
     width: 5ch;
-    display: inline-block;
     font-family: 'Koulen', monospace;
 }
 
@@ -265,6 +248,9 @@ button:hover {
     margin: 5px;
 }
 
+/* ================
+   Lower Bar
+=================== */
 #lower-bar {
     height: 10vh;
     display: flex;
@@ -286,21 +272,55 @@ button:hover {
     border-width: 5px;
 }
 
-#hint-popup {
-    position: fixed;
-    top: 20%;
-    left: 35%;
+/* ================
+   Popups
+=================== */
+#how-to-popup {
+    position: absolute;
+    left: 0;
+    top: 0;
     background-color: white;
     margin: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: thin;
+    width: calc(100% - 80px);
+    margin-bottom: 40px;
+    /* transform: translateX(50%); */
+}
+
+#demo-video {
+    margin: auto;
+    margin-top: 10px;
+}
+
+#close-popup-button {
+    font-size: 30px;
+    margin: auto;
+    margin-top: 45px;
+}
+
+#hint-popup {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
     padding: 30px;
     border-radius: 20px;
     font-size: 20px;
     text-align: center;
     font-weight: 200;
-    width: calc(25% - 80px);
-    margin-bottom: 40px;
+    width: 20%;
+    max-width: 90%;
+    z-index: 1000;
 }
 
+/* ================
+   Media Queries
+=================== */
 @media (max-width: 780px) {
     #left-container #top-bar {
         display: block;
@@ -335,7 +355,7 @@ button:hover {
         padding-bottom: 20px;
     }
 
-    /* tiles */
+    /* Tile Positions on Small Screens */
     #tile-0 {
         top: 80px;
         left: 0px;
