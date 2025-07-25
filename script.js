@@ -337,6 +337,10 @@ async function endGame() {
         console.log("Adding ", anagram_pair, " to guess list.");
         currentGuess = "";
     }
+    // if empty, remove the final div
+    else {
+        pairs.pop();
+    }
 
     // Make API call to get stats
     stats = await getStats(guesses, letters_recieved);
@@ -386,7 +390,7 @@ function displayStats(stats) {
     score_box.textContent = `Score: ${stats.score}`;
     accuracy_box.textContent = `Accuracy: ${stats.accuracy}%`;
     skill_box.textContent = `Skill: ${stats.skill}`;
-    not_guessed_reformated = reformat_stats(stats.not_guessed_words);
+    let not_guessed_reformated = reformat_stats(stats.not_guessed_words);
     not_guessed_box.textContent = `Words you could've used: ${not_guessed_reformated}`;
 }
 
@@ -444,7 +448,7 @@ function reformat_stats(words) {
         let word = words[i];
         copy = copy + word + ", ";
     }
-    copy = copy.slice(0, -1);
+    copy = copy.slice(0, -2);
     return copy;
 }
 
