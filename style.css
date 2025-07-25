@@ -395,6 +395,11 @@ button:hover {
         right: 60px;
         transform: rotate(35deg);
     }
+
+    /* Hint popup on small screens */
+    #hint-popup {
+        width: 35%;
+    }
 }
 
 @media (max-width: 570px) {
@@ -407,5 +412,9 @@ button:hover {
         letter-spacing: 1px;
         margin: 5px;
         border-width: 3px;
+    }
+
+    #hint-popup {
+        width: 40%;
     }
 }

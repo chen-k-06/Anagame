@@ -525,7 +525,12 @@ document.getElementById("hint").addEventListener("click", () => {
     console.log('Hint button was clicked!');
     const how_to_popup = document.getElementById("hint-popup");
     const message = document.getElementById("hint-content");
-    let hint = getHint();
+    if (in_game === false) {
+        message.innerHTML = `Start the game first`
+        how_to_popup.classList.remove("hidden");
+        return;
+    }
+    let hint = getHint(letters);
     message.innerHTML = `Try working with ${hint}`
     how_to_popup.classList.remove("hidden");
 });
