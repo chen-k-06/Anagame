@@ -177,6 +177,13 @@ play_button.addEventListener("click", async () => {
     document.getElementById('play-button').disabled = true;
     document.getElementById('scrabble-uniform').disabled = true;
 
+    // reset board 
+    const old_words_c = document.querySelectorAll('.correct');
+    const old_words_in = document.querySelectorAll('.incorrect');
+
+    old_words_c.forEach(div => div.remove());
+    old_words_in.forEach(div => div.remove());
+
     // reset containers
     guesses = [];
     pairs = [];
@@ -427,7 +434,7 @@ function reformat_stats(words) {
         let word = words[i];
         copy = copy + word + ", "
     }
-    copy[copy.length - 1] = "";
+    copy = copy.slice(0, -1);
     return copy;
 }
 
