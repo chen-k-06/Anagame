@@ -427,6 +427,7 @@ function reformat_stats(words) {
         let word = words[i];
         copy = copy + word + ", "
     }
+    copy[copy.length - 1] = "";
     return copy;
 }
 
