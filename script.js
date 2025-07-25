@@ -521,7 +521,7 @@ document.getElementById("close-popup-button").addEventListener("click", () => {
 // Hint button event listeners
 // =======================
 
-document.getElementById("hint").addEventListener("click", "click", async () => {
+document.getElementById("hint").addEventListener("click", async () => {
     console.log('Hint button was clicked!');
     const how_to_popup = document.getElementById("hint-popup");
     const message = document.getElementById("hint-content");
