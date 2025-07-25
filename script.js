@@ -530,7 +530,7 @@ document.getElementById("hint").addEventListener("click", async () => {
         how_to_popup.classList.remove("hidden");
         return;
     }
-    const hint = await getHint(letters);
+    const hint = await getHint(letters_recieved);
     message.innerHTML = `Try working with ${hint}`
     how_to_popup.classList.remove("hidden");
 });
