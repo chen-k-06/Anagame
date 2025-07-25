@@ -184,6 +184,16 @@ play_button.addEventListener("click", async () => {
     old_words_c.forEach(div => div.remove());
     old_words_in.forEach(div => div.remove());
 
+    let score_box = document.getElementById('score_box');
+    let accuracy_box = document.getElementById('accuracy_box');
+    let skill_box = document.getElementById('skill_box');
+    let not_guessed_box = document.getElementById('not_guessed_box');
+
+    score_box.textContent = "";
+    accuracy_box.textContent = "";
+    skill_box.textContent = "";
+    not_guessed_box.textContent = "";
+
     // reset containers
     guesses = [];
     pairs = [];
@@ -432,7 +442,7 @@ function reformat_stats(words) {
     copy = "";
     for (let i = 0; i < words.length; i++) {
         let word = words[i];
-        copy = copy + word + ", "
+        copy = copy + word + ", ";
     }
     copy = copy.slice(0, -1);
     return copy;
