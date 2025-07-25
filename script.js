@@ -521,7 +521,7 @@ document.getElementById("close-popup-button").addEventListener("click", () => {
 // Hint button event listeners
 // =======================
 
-document.getElementById("hint").addEventListener("click", () => {
+document.getElementById("hint").addEventListener("click", "click", async () => {
     console.log('Hint button was clicked!');
     const how_to_popup = document.getElementById("hint-popup");
     const message = document.getElementById("hint-content");
@@ -530,7 +530,7 @@ document.getElementById("hint").addEventListener("click", () => {
         how_to_popup.classList.remove("hidden");
         return;
     }
-    let hint = getHint(letters_recieved);
+    const hint = await getHint(letters);
     message.innerHTML = `Try working with ${hint}`
     how_to_popup.classList.remove("hidden");
 });
