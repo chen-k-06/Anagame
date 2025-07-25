@@ -335,6 +335,7 @@ async function endGame() {
         guesses.push(anagram_pair)
         guessCount++;
         console.log("Adding ", anagram_pair, " to guess list.");
+        currentGuess = "";
     }
 
     // Make API call to get stats
@@ -421,7 +422,6 @@ function arraysEqual(a, b) {
 
         let flag2 = true;
         // check the second words 
-
         for (let j = 0; j < word1_2.length; j++) {
             if (word1_2[j].toLowerCase() !== word2_2[j].toLowerCase()) {
                 flag2 = false;
