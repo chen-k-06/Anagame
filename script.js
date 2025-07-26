@@ -23,7 +23,7 @@ let pairs = []; // list of divs, meant to create elements for formatting
 
 let currentGuess = "";
 let guessCount = 0;
-let distrbution_value;
+let distribution_value;
 
 let hint = "";
 
@@ -31,10 +31,10 @@ let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
 if (distToggle.value === "1") {
     console.log("Mode: SCRABBLE");
-    distrbution_value = "scrabble"
+    distribution_value = "scrabble"
 } else {
     console.log("Mode: UNIFORM");
-    distrbution_value = "uniform"
+    distribution_value = "uniform"
 }
 
 // =======================
@@ -342,7 +342,10 @@ async function endGame() {
     }
     // if empty, remove the final div
     else {
-        pairs.pop();
+        if (pairs[guessCount]) {
+            pairs[guessCount].remove();
+            pairs.pop();
+        }
     }
 
     // Make API call to get stats
@@ -489,11 +492,11 @@ updateSliderBackground(slider);
 
 distToggle.addEventListener("mousedown", (e) => {
     if (distToggle.value === "0") {
-        distrbution_value = "scrabble"
+        distribution_value = "scrabble"
         distToggle.value = 1;
     }
     else {
-        distrbution_value = "uniform"
+        distribution_value = "uniform"
         distToggle.value = 0;
     }
     e.preventDefault();
