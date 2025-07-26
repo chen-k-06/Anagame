@@ -25,6 +25,8 @@ let currentGuess = "";
 let guessCount = 0;
 let distrbution_value;
 
+let hint = "";
+
 let timeLeft = 60 * 100; // 60 seconds -> 60 * 1000 milliseconds
 
 if (distToggle.value === "1") {
@@ -325,6 +327,7 @@ async function endGame() {
     distToggle.disabled = false;
     distToggle.classList.remove("disabled");
     console.log("Game over.");
+    hint = "";
 
     // if enter not pressed, process the final guess
     if (pairs[guessCount] != "") {
@@ -530,7 +533,12 @@ document.getElementById("hint").addEventListener("click", async () => {
         how_to_popup.classList.remove("hidden");
         return;
     }
-    const hint = await getHint(letters_recieved);
+    if (hint != "") {
+        message.innerHTML = `Try working with ${hint}`
+        how_to_popup.classList.remove("hidden");
+        return;
+    }
+    hint = await getHint(letters_recieved);
     message.innerHTML = `Try working with ${hint}`
     how_to_popup.classList.remove("hidden");
 });
