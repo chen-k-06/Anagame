@@ -11,7 +11,7 @@ const slider = document.getElementById("slider");
 const distToggle = document.getElementById("scrabble-uniform");
 const timer = document.getElementById('timer');
 
-const invalid_pair = ["-1", "=1"];
+const invalid_pair = ["-1", "-1"];
 
 let INITAL_FUN_FACTOR = 5;
 let fun_factor = MAX_FUN_FACTOR - INITAL_FUN_FACTOR;
@@ -190,6 +190,8 @@ play_button.addEventListener("click", async () => {
     let accuracy_box = document.getElementById('accuracy_box');
     let skill_box = document.getElementById('skill_box');
     let not_guessed_box = document.getElementById('not_guessed_box');
+    guessCount = 0;
+    hint = "";
 
     score_box.textContent = "";
     accuracy_box.textContent = "";
@@ -345,7 +347,6 @@ async function endGame() {
         if (pairs[guessCount]) {
             pairs[guessCount].remove();
             pairs.pop();
-            guessCount--;
         }
     }
 
