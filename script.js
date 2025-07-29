@@ -345,6 +345,7 @@ async function endGame() {
         if (pairs[guessCount]) {
             pairs[guessCount].remove();
             pairs.pop();
+            guessCount--;
         }
     }
 
@@ -470,6 +471,18 @@ distToggle.addEventListener("input", () => {
     }
 });
 
+distToggle.addEventListener("mousedown", (e) => {
+    if (distToggle.value === "0") {
+        distribution_value = "scrabble"
+        distToggle.value = 1;
+    }
+    else {
+        distribution_value = "uniform"
+        distToggle.value = 0;
+    }
+    e.preventDefault();
+});
+
 slider.addEventListener("input", () => {
     fun_factor = MAX_FUN_FACTOR - slider.value;
 });
@@ -485,22 +498,6 @@ function updateSliderBackground(slider) {
 
 slider.addEventListener('input', () => updateSliderBackground(slider));
 updateSliderBackground(slider);
-
-// =======================
-// Distribution toggle styling logic
-// =======================
-
-distToggle.addEventListener("mousedown", (e) => {
-    if (distToggle.value === "0") {
-        distribution_value = "scrabble"
-        distToggle.value = 1;
-    }
-    else {
-        distribution_value = "uniform"
-        distToggle.value = 0;
-    }
-    e.preventDefault();
-});
 
 // =======================
 // Help button event listeners
