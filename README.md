@@ -2,4 +2,4 @@ Anagame is a fast-paced anagram web word game implemented in Python, linked to a
 
 https://github.com/user-attachments/assets/1101baad-e15f-41cc-891f-f3d8bdda6ab2
 
-The backend of the project was built with inspiration from the Academy of Math and Programming's (AMP) computer science cirriculum.
+The backend of this project was built with inspiration from the Academy of Math and Programming's (AMP) computer science cirriculum.
